@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,6 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.aksw.qa.annotation.index.IndexDBO_classes;
@@ -35,83 +37,173 @@ import edu.stanford.nlp.util.CoreMap;
 
 public class QA {
 	
+//	who=http://dbpedia.org/ontology/Person
+//		where=http://dbpedia.org/ontology/location
+//		in=http://dbpedia.org/ontology/location,http://dbpedia.org/ontology/locatedInArea
+//		when=http://dbpedia.org/ontology/date,http://dbpedia.org/property/date
+//		find=http://dbpedia.org/ontology/location
+//		long=http://dbpedia.org/ontology/length
+//		longer=http://dbpedia.org/ontology/length
+//		longest=http://dbpedia.org/ontology/length
+//		old=http://dbpedia.org/ontology/openingYear,http://dbpedia.org/ontology/birthDate
+//		older=http://dbpedia.org/ontology/openingYear,http://dbpedia.org/ontology/birthDate
+//		oldest=http://dbpedia.org/ontology/openingYear,http://dbpedia.org/ontology/birthDate
+//		tall=http://dbpedia.org/ontology/height
+//		taller=http://dbpedia.org/ontology/height
+//		tallest=http://dbpedia.org/ontology/height
+//		high=http://dbpedia.org/ontology/elevation
+//		higher=http://dbpedia.org/ontology/elevation,http://dbpedia.org/property/higher
+//		highest=http://dbpedia.org/ontology/elevation,http://dbpedia.org/property/highest
+//		small=http://dbpedia.org/ontology/areaTotal
+//		smaller=http://dbpedia.org/ontology/areaTotal
+//		smallest=http://dbpedia.org/ontology/areaTotal
+//		large=http://dbpedia.org/ontology/areaTotal
+//		larger=http://dbpedia.org/ontology/areaTotal
+//		largest=http://dbpedia.org/ontology/areaTotal
+//		big=http://dbpedia.org/ontology/areaTotal
+//		bigger=http://dbpedia.org/ontology/areaTotal
+//		biggest=http://dbpedia.org/ontology/areaTotal
 	
-	private static String question = "Katie Holmes";
-	private static  Map<String, List<Entity>> entities = new LinkedHashMap<>();
+
+	private static String question = "When was Olof Palme shot?";
+	private static  Map<String, List<String>> properties = new LinkedHashMap<>();
 	private static final String PREFIX = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"
 									   + "PREFIX dbp:  <http://dbpedia.org/property/> \n"
 									   + "PREFIX dbo:  <http://dbpedia.org/ontology/> \n"
 									   + "PREFIX    : <http://dbpedia.org/resource/>  \n"
-									   + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n";
+									   + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+									   + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n";
 	
 	
 	private static  List<String> boolQuestion = Arrays.asList("DO","DID","HAS","WAS","HAVE","DOES","WERE", "IS", "ARE", "BE");
 	private static final String service = "http://dbpedia.org/sparql";
+	private static String query;
+	
+	private static String result;
 	
 	private static ArrayList<String> compoundWords;
 	
- public static void main(String[] args) throws IOException {
+	private static  ArrayList<Entity> entityList;
 	
-	 
-	 //getKeywords();
-//	/* if(args[0] != null)
-//		 question = args[0];
-//	 */
-		 Spotlight fox = new Spotlight();
-		// spotlight.setConfidence(0.35);
+	private static ArrayList<String> verbs;
+	
+	private static ArrayList<String> nouns;
+	
+	 public static void main(String[] args) throws IOException {
 		
-		 entities = fox.getEntities(question);
-		 for (Map.Entry<String, List<Entity>> entry : entities.entrySet())
-		 {		
-			
-		     System.out.println(entry.getKey() + "/" + entry.getValue().get(0).getPosTypesAndCategories());
+		 
+		 getKeywords(question);
+	//	/* if(args[0] != null)
+	//		 question = args[0];
+	//	 */
+	//		 Spotlight fox = new Spotlight();
+	//		// spotlight.setConfidence(0.35);
+	//		
+	//		 entities = fox.getEntities(question);
+	//		 for (Map.Entry<String, List<Entity>> entry : entities.entrySet())
+	//		 {		
+	//			
+	//		     System.out.println(entry.getKey() + "/" + entry.getValue().get(0).getPosTypesAndCategories());
+	//		 }
+	//		 System.out.println("Test");
+		 
+//		IndexDBO_properties index = new IndexDBO_properties();
+//		System.out.println(index.search("active"));
+	//	 
+		 //String sparql = "SELECT DISTINCT ?pred WHERE { ?pred a rdf:Property} ORDER BY ?pred";
+		 
+		Spotlight fox = new Spotlight();
+		entityList = (ArrayList<Entity>) fox.getEntities(question).get("en");
+		 
+		 for(Entity e : entityList) {
+			 System.out.println(e);
 		 }
-		 System.out.println("Test");
-	 
-	IndexDBO_properties index = new IndexDBO_properties();
-	System.out.println(index.search("born"));
-//	 
-//	 String sparql = "SELECT DISTINCT ?pred WHERE { ?pred a rdf:Property} ORDER BY ?pred";
-//	 Spotlight fox = new Spotlight();
-//	 
-//			 
-//	// query2(sparql);
-//	 String[] tokens = question.split(" ");
-//	 String starting = tokens[0].toUpperCase();
-//	 switch(starting) {
-//	 case "WHO":		 
-//		 break;
-//	 case "HOW":		 
-//		 break;		 
-//	 case "WHERE":	 		
-//	 	 break;
-//	 case "WHY":
-//		 break;
-//	 case "WHAT":
-//		 break;
-//	 case "WHICH":
-//		 break;
-//	 case "WHEN":
-//		 break;
-//	 default:
-//		 if(starting.equals("LIST") || starting.equals("NAME") ||  starting.equals("SHOW") || starting.equals("GIVE")) 
-//		 {
-//			 
-//		 }
-//		 if(boolquestion.contains(starting))
-//		 {
-//			 
-//		 }
-//		 
-//		 break;
-//	 		
-	 
-	 
-//	 }
-	 
-}
+	//	 for (Map.Entry<String, List<Entity>> entry : entities.entrySet())		 {		
+	//			entityList.add((Entity) entry.getValue());
+	//			
+	//	 }
+	//		     System.out.println(entry.getKey() + "/" + entry.getValue().get(0).getPosTypesAndCategories());
+				 
+		// query2(sparql);
+		 String[] tokens = question.split(" ");
+		 String starting = tokens[0].toUpperCase();
+		 switch(starting) {
+		 case "WHO":		 
+			 break;
+		 case "HOW":		 
+			 break;		 
+		 case "WHERE":	 		
+		 	 break;
+		 case "WHY":
+			 break;
+		 case "WHAT":
+			 break;
+		 case "WHICH":
+			 break;
+		 case "WHEN": findProperty();
+		 				result = sparqlWhen();
+		 				System.out.println(result);
+		 			 
+			 
+			 
+			 break;
+		 default:
+			 if(starting.equals("LIST") || starting.equals("NAME") ||  starting.equals("SHOW") || starting.equals("GIVE")) 
+			 {
+				 
+			 }
+			 if(boolQuestion.contains(starting))
+			 {
+				 
+			 }
+			 
+			 break;
+		 		
+		 
+		 
+		 }
+		 
+	}
 
- 	public static void getKeywords() {
+ 	private static String sparqlWhen() throws UnsupportedEncodingException {
+ 		for(String verb: properties.keySet()) {
+ 			ArrayList<String> s = (ArrayList<String>) properties.get(verb);
+ 			for(String sp : s)
+	 			if(sp != null) {
+	 				String entitiy = java.net.URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+	 				query = "SELECT ?date WHERE{<" + entitiy + "> <" + sp + "> ?date ." + " FILTER ( datatype(?date) = xsd:date )}";
+	 				result = query(query);
+	 				System.out.println(sp);
+	 				if(result != null) return result;
+	 			}
+ 		}
+ 		return lastOptionWhen();
+ 	}
+ 	
+ 	
+ 	private static String lastOptionWhen() {
+ 		query = "SELECT ?date WHERE{<" + entityList.get(0).getUris().get(0) + "> ?property ?date ." + " FILTER ( datatype(?date) = xsd:date )}";
+ 		return result = query(query);
+ 	}
+
+	private static void findProperty() {
+ 		IndexDBO_properties index = new IndexDBO_properties();
+ 		for(String verb: verbs) {
+ 			properties.put(verb, index.search(verb));
+ 		}
+ 		
+ 		for(String noun: nouns) {
+ 			properties.put(noun, index.search(noun));
+ 		}
+ 		
+ 		for(String compound: compoundWords) {
+ 			String[] com = compound.split(" ");
+ 			properties.put(com[0], index.search(com[0]));
+ 			properties.put(com[1], index.search(com[1]));
+ 		}
+ 	}
+
+	public static void getKeywords(String question) {
  		PrintWriter out = new PrintWriter(System.out);
  		
  		Properties props = new Properties();
@@ -120,7 +212,7 @@ public class QA {
  		 //props.setProperty("annotators", "tokenize, ssplit, pos, lemma");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 
-        String content = "Which electronics companies were founded in Beijing?";
+        String content = question;
         System.out.println(content);
 
         Annotation annotation = new Annotation(content);
@@ -130,8 +222,8 @@ public class QA {
         
         List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
         compoundWords = getCompounds(sentences);
-        ArrayList<String> verbs = removeVerbs(getWords(sentences, "V"));
-        ArrayList<String> nouns = removeNouns(getWords(sentences, "N"));
+        verbs = removeVerbs(getWords(sentences, "V"));
+        nouns = removeNouns(getWords(sentences, "N"));
         
  
         System.out.println("Compounds:");
@@ -280,20 +372,18 @@ public class QA {
 		
 		
 		
-		public static void query(String q) {
+		public static String query(String q) {
 			
-			
+			String result= "";
 			q = PREFIX + q;
 			System.out.println(q);
 			QueryExecution qe = QueryExecutionFactory.sparqlService(service, q);
 			ResultSet rs = qe.execSelect();
 			while(rs.hasNext()) {
 				QuerySolution s = rs.nextSolution();
-				System.out.println(s);
-				
+				result = result + s + " ";			
 			}
-			
-		
+			return (result.equals("")) ? null : result;		
 	}
 	
 	
