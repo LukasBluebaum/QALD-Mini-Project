@@ -172,7 +172,7 @@ public class QA {
 	 			if(sp != null) {
 	 				String entitiy = java.net.URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
 	 				query = "SELECT ?date WHERE{<" + entitiy + "> <" + sp + "> ?date ." + " FILTER ( datatype(?date) = xsd:date )}";
-	 				result = query(query);
+	 				//result = query(query);
 	 				System.out.println(sp);
 	 				if(result != null) return result;
 	 			}
