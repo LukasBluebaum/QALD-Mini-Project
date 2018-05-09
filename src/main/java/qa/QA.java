@@ -42,12 +42,7 @@ public class QA {
 		 } catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		 }	
-		 
-		 if(result != null) {
-			 System.out.println(result);
-		 } else {
-			 System.out.println("Unfortunately we are not able to provide an answer!");
-		 }
+		 System.out.println((result != null) ? result : "Unfortunately we are not able to provide an answer!");
 	}
 	
 }	

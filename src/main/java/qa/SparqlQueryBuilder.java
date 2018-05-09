@@ -32,14 +32,13 @@ public class SparqlQueryBuilder {
 	}
 	
 	public String sparqlWhen() throws UnsupportedEncodingException {
- 		for(String verb: properties.keySet()) {
- 			ArrayList<String> s = (ArrayList<String>) properties.get(verb);
- 			for(String sp : s)
-	 			if(sp != null) {
+ 		for(String keyword: properties.keySet()) {
+ 			for(String property : (ArrayList<String>) properties.get(keyword))
+	 			if(property != null) {
 	 				String entitiy = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
-	 				String query = "SELECT ?date WHERE{<" + entitiy + "> <" + sp + "> ?date ." + " FILTER ( datatype(?date) = xsd:date )}";
+	 				String query = "SELECT ?date WHERE{<" + entitiy + "> <" + property + "> ?date ." + " FILTER ( datatype(?date) = xsd:date )}";
 	 				String result = executeQuery(query);
-	 				System.out.println(sp + "\n");
+	 				System.out.println(property + "\n");
 	 				if(result != null) return result;
 	 			}
  		}
