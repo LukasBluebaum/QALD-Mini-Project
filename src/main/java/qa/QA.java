@@ -1,6 +1,8 @@
 package qa;
 import java.io.UnsupportedEncodingException;
 
+import org.aksw.qa.annotation.index.IndexDBO_classes;
+
 public class QA {
 	
 //	who=http://dbpedia.org/ontology/Person
@@ -31,11 +33,12 @@ public class QA {
 //		biggest=http://dbpedia.org/ontology/areaTotal
 	
 
-	 private static final String question = "When was Albert Einstein born?";
+	 private static final String question = "Who book has the most pages?";
 	
 	 public static void main(String[] args) {
-		
+
 		 String result = null;
+
 		 QuestionProcessor processor = new QuestionProcessor();
 		 try {
 			result = processor.processQuestion(question);

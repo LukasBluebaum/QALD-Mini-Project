@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.aksw.qa.annotation.index.IndexDBO_classes;
 import org.aksw.qa.annotation.index.IndexDBO_properties;
 import org.aksw.qa.annotation.spotter.Spotlight;
 import org.aksw.qa.commons.datastructure.Entity;
@@ -34,18 +35,27 @@ public class QuestionProcessor {
 	
 	private static ArrayList<String> nouns;
 	
+	private static String comparative;
+	
+	private static String superlative;
+	
+	
 	public String processQuestion(String question) throws UnsupportedEncodingException {
+
 		 ArrayList<Entity> entityList = retrieveNamedEntities(question);
 		 getKeywords(question);
 		 Map<String, List<String>> properties = findProperties();
+		 ArrayList<String> classes = findClasses();
 		 
-		 SparqlQueryBuilder builder = new SparqlQueryBuilder(properties,entityList);
+		 SparqlQueryBuilder builder = new SparqlQueryBuilder(properties,classes,entityList);
+		 builder.setQuestion(question);
 		 String result = null;
 		 
 		 String[] tokens = question.split(" ");
+		 
 		 String starting = tokens[0].toUpperCase();
 		 switch(starting) {
-			 case "WHO":		 
+			 case "WHO":	result = builder.sparqlWho();		 
 				 break;
 			 case "HOW":		 
 				 break;		 
@@ -57,7 +67,7 @@ public class QuestionProcessor {
 				 break;
 			 case "WHICH":
 				 break;
-			 case "WHEN": result = builder.sparqlWhen();
+			 case "WHEN": //result = builder.sparqlWhen();
 			 	 break;
 			 default:
 				 if(starting.equals("LIST") || starting.equals("NAME") ||  starting.equals("SHOW") || starting.equals("GIVE")) {
@@ -93,7 +103,27 @@ public class QuestionProcessor {
  			properties.put(com[0], index.search(com[0]));
  			properties.put(com[1], index.search(com[1]));
  		}
+
  		return properties;
+ 	}
+	
+	private ArrayList<String> findClasses() {
+		ArrayList<String> classes = new ArrayList<String>();
+		
+ 		IndexDBO_classes index = new IndexDBO_classes();
+ 		
+ 		for(String noun: nouns) {
+ 			classes.addAll(index.search(noun));
+ 			
+ 		}
+ 		
+ 		for(String compound: compoundWords) {
+ 			String[] com = compound.split(" ");
+ 			classes.addAll(index.search(com[0]));
+ 			classes.addAll(index.search(com[1]));
+ 		}
+ 		System.out.println(classes);
+ 		return classes;
  	}
 	
 	private void getKeywords(String question) {
@@ -118,6 +148,13 @@ public class QuestionProcessor {
         verbs = removeVerbs(getWords(sentences, "V"));
         nouns = removeNouns(getWords(sentences, "N"));
         
+        
+        List<String> comparativeList = getWords(sentences,"JJR");
+        comparative = comparativeList.size() == 1 ? comparativeList.get(0) : null ;
+        
+        List<String> superlativeList = getWords(sentences,"JJS");
+        superlative = superlativeList.size() == 1 ? superlativeList.get(0) : null ;
+        
  
         System.out.println("Compounds:");
         for(String compound: compoundWords) {
@@ -134,6 +171,9 @@ public class QuestionProcessor {
         	System.out.println(noun);
         }
         System.out.println("");
+        
+        System.out.println("Comparative:  " + comparative + "\n");
+        System.out.println("Superlative:  " + superlative + "\n");
  	}
 	
 	private ArrayList<String> getCompounds(List<CoreMap> sentences) {
