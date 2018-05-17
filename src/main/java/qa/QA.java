@@ -1,8 +1,6 @@
 package qa;
 import java.io.UnsupportedEncodingException;
 
-import org.aksw.qa.annotation.index.IndexDBO_classes;
-
 public class QA {
 	
 //	who=http://dbpedia.org/ontology/Person
@@ -33,11 +31,12 @@ public class QA {
 //		biggest=http://dbpedia.org/ontology/areaTotal
 	
 
-	 private static final String question = "Who book has the most pages?";
+	 private static final String question = "Was the wife of president Lincoln called Mary?";
 	
 	 public static void main(String[] args) {
 
 		 String result = null;
+
 
 		 QuestionProcessor processor = new QuestionProcessor();
 		 try {

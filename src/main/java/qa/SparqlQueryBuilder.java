@@ -10,6 +10,11 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.RDFNode;
+
+import utils.Comparison;
+import utils.Question;
 
 public class SparqlQueryBuilder {
 	
@@ -28,14 +33,14 @@ public class SparqlQueryBuilder {
 	private ArrayList<String> classes;
 	
 	private ArrayList<Entity> entityList;
-	
-	private String question;
-	
-	public SparqlQueryBuilder(Map<String, List<String>> properties,ArrayList<String> classes, ArrayList<Entity> entityList) {
-		this.properties = properties;
-		this.classes = classes;
-		this.entityList = entityList;
 		
+	private Question q;
+	
+	public SparqlQueryBuilder(Question q) {
+		this.properties = q.properties;
+		this.classes = q.classes;
+		this.entityList = q.entityList;	
+		this.q = q;
 	}
 	
 	public String sparqlWhen() throws UnsupportedEncodingException {
@@ -46,10 +51,11 @@ public class SparqlQueryBuilder {
 	
 	public String sparqlWho() throws UnsupportedEncodingException {
 		String result = null;
-		System.out.println(classes.size());
 		if(classes.size() > 0) {
-			if(question.contains("most")) {
-				result = mostSparql();
+			if(q.question.contains("most")) {
+				result = determinerWho("DESC");
+			} else if(q.question.contains("least")) {
+				result = determinerWho("ASC");
 			}
 		} else {
 			result = simpleSparql("?answer a foaf:Person. ","");
@@ -59,17 +65,18 @@ public class SparqlQueryBuilder {
  		return null;
  	}
 	
-	private String mostSparql() throws UnsupportedEncodingException {
+	private String determinerWho(String order) throws UnsupportedEncodingException {
 		for(String keyword: properties.keySet()) {
- 			for(String property : (ArrayList<String>) properties.get(keyword))
-	 			if(property != null) {
+ 			for(String property : (ArrayList<String>) properties.get(keyword)) {
+	 			if(property != null) {	 				
 	 				String cls = URLDecoder.decode(classes.get(0), "UTF-8");
 	 				String query = "SELECT ?answer WHERE{ ?answer <" + property + "> ?y . "
-	 						+ "?y " + "rdf:type <" + cls + "> . } GROUP BY ?answer ORDER BY DESC(COUNT(?y)) LIMIT 1 OFFSET 0";
+	 						+ "?y " + "rdf:type <" + cls + "> . } GROUP BY ?answer ORDER BY" + order + "(COUNT(?y)) LIMIT 1 OFFSET 0";
 	 				String result = executeQuery(query);
 	 				System.out.println(property + "\n");	 				
 	 				if(result != null) return result;
 	 			}
+ 			}	
  		}
 		return null;
 	}
@@ -79,8 +86,8 @@ public class SparqlQueryBuilder {
 		for(String keyword: properties.keySet()) {
  			for(String property : (ArrayList<String>) properties.get(keyword))
 	 			if(property != null) {
-	 				String entitiy = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
-	 				String query = "SELECT ?answer WHERE{" + begin +"<" + entitiy + "> <" + property + "> ?answer ."+ filter + " }";
+	 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+	 				String query = "SELECT ?answer WHERE{" + begin +"<" + entity + "> <" + property + "> ?answer ."+ filter + " }";
 	 				String result = executeQuery(query);
 	 				System.out.println(property + "\n");
 	 				if(result != null) return result;
@@ -89,9 +96,23 @@ public class SparqlQueryBuilder {
 		return null;
 	}
 	
+	public String simpleASK(String begin, String filter) throws UnsupportedEncodingException {
+		for(String keyword: properties.keySet()) {
+ 			for(String property : (ArrayList<String>) properties.get(keyword))
+	 			if(property != null) {
+	 				String entity1 = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+	 				String entity2 = URLDecoder.decode(entityList.get(1).getUris().get(0).toString(), "UTF-8");
+	 				String query = "ASK WHERE{" + begin +"<" + entity1 + "> <" + property + "> <" + entity2 + "> . "+ filter + " }";
+	 				String result = executeQuery(query);
+	 				System.out.println(property + "\n");
+	 				if(result.equals("true")) return result;
+	 			}
+ 		}
+		return "false";
+	}
 	
 	private String lastOptionWhen() {
- 		String query = "SELECT ?date WHERE{<" + entityList.get(0).getUris().get(0) + "> ?property ?date ." + " FILTER ( datatype(?date) = xsd:date )}";
+ 		String query = "SELECT ?answer WHERE{<" + entityList.get(0).getUris().get(0) + "> ?property ?answer ." + " FILTER ( datatype(?answer) = xsd:date )}";
  		return executeQuery(query);
  	}
 	
@@ -100,15 +121,69 @@ public class SparqlQueryBuilder {
 		q = PREFIX + q;
 		System.out.println(q + "\n");
 		QueryExecution qe = QueryExecutionFactory.sparqlService(service, q);
-		ResultSet rs = qe.execSelect();
-		while(rs.hasNext()) {
-			QuerySolution s = rs.nextSolution();
-			result = result + s + " ";			
+		if(this.q.questionType.equals("ASK")) {
+			 return String.valueOf(qe.execAsk());			
+		} else {
+			ResultSet rs = qe.execSelect();
+			
+			while(rs.hasNext()) {
+				QuerySolution s = rs.nextSolution();
+				RDFNode node = s.get("answer");
+				String st = null;
+				if(node.isLiteral())
+					 st = node.asLiteral().toString();
+				else
+					 st = node.asResource().toString();
+				
+				if(st.contains("wiki") || st.contains("rdf-")) continue;
+				result = result + st + " ";			
+			}
 		}
 		return (result.equals("")) ? null : result;		
 	}
 	
-	public void setQuestion(String question) {
-		this.question = question;
+
+	public String sparqlHow() throws UnsupportedEncodingException {
+		
+		String[] tokens = q.question.split(" ");
+		
+		if(tokens[1].equals("many") || tokens[1].equals("much")) {
+				
+		}	else {
+			System.out.println("----");
+			String compare = null;
+			for(Comparison comp: Comparison.values()) {
+				if(q.question.contains(comp.toString().toLowerCase()))
+					compare = comp.toString();			
+			}
+			System.out.println(compare);
+			if(compare.toLowerCase().equals(q.superlative)) {
+				
+					System.out.println("----");
+					String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+					String property = null;
+					
+					for( String cls: classes) {
+						property = executeQuery("SELECT DISTINCT ?answer WHERE{ ?x rdf:type <" + cls + ">. ?x ?answer <" + entity + ">. }");
+						if(property != null) break;
+					}
+					
+					String[] properties = property.split(" "); 
+		 			for(String p: properties) {
+		 				String query = "SELECT ?answer WHERE{ ?x  <" + p + "> <" +  entity +"> . ?x  <" + Comparison.valueOf(compare).getURI(0) +"> ?answer . } "
+		 						+ "ORDER BY " +  Comparison.valueOf(compare).getOrder() + "(?answer) LIMIT 1 OFFSET 0";
+		 				String result = executeQuery(query);
+		 				System.out.println(property + "\n");
+		 				if(result != null) return result;
+		 			}
+	 		}
+			return null;
+		}
+			
+		
+		// TODO Auto-generated method stub
+		return null;
 	}
+	
+	
 }
