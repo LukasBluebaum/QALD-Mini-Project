@@ -27,8 +27,7 @@ public enum Comparison {
 	 BIG("http://dbpedia.org/ontology/areaTotal"),
 	 BIGGER("http://dbpedia.org/ontology/areaTotal"),
 	 BIGGEST("http://dbpedia.org/ontology/areaTotal","DESC");
-
-	 
+ 
 	  private String order;
 	  private ArrayList<String>  uri = new ArrayList<String>();
 	  

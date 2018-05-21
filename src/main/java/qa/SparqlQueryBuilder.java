@@ -10,7 +10,6 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.RDFNode;
 
 import utils.Comparison;
@@ -37,10 +36,86 @@ public class SparqlQueryBuilder {
 	private Question q;
 	
 	public SparqlQueryBuilder(Question q) {
-		this.properties = q.properties;
-		this.classes = q.classes;
-		this.entityList = q.entityList;	
-		this.q = q;
+//		this.properties = q.properties;
+//		this.classes = q.classes;
+//		this.entityList = q.entityList;	
+//		this.q = q;
+	}
+	
+	public String sparqlWhere() throws UnsupportedEncodingException {
+		if(entityList.size() == 1) {
+			for(String keyword: properties.keySet()) {
+	 			for(String property : (ArrayList<String>) properties.get(keyword))
+		 			if(property != null) {
+		 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+		 				String query = "SELECT DISTINCT ?answer WHERE{<" + property + "> rdfs:range dbo:Place ." +"<" + entity + "> <" + property + "> ?answer . }";
+		 				String result = executeQuery(query);
+		 				System.out.println(property + "\n");
+		 				if(result != null) return result;
+		 			}
+	 		}
+			return simpleSparql("","");
+		} else {
+			
+		}
+		return null;
+ 	}
+	
+	public String sparqlWhat() throws UnsupportedEncodingException {
+		String compare = null;
+		for(Comparison comp: Comparison.values()) {
+			if(q.question.contains(comp.toString().toLowerCase()))
+				compare = comp.toString();			
+		}
+		System.out.println(compare);
+		if(compare != null && compare.toLowerCase().equals(q.superlative)) {
+			
+			if(entityList != null) {
+				System.out.println("----");
+				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+				String property = null;
+
+				String classUsed = null;
+				for( String cls: classes) {
+					property = executeQuery("SELECT DISTINCT ?answer WHERE{ ?x rdf:type <" + cls + ">. ?x ?answer <" + entity + ">. }");
+					if(property != null) {
+						classUsed = cls;
+						break;
+					}
+				}
+				
+				String[] properties = property.split(" "); 
+	 			for(String p: properties) {
+	 				String query = "SELECT ?answer WHERE{?answer rdf:type <" + classUsed + ">. ?answer  <" + p + "> <" +  entity +"> . ?answer  <" + Comparison.valueOf(compare).getURI(0) +"> ?x . } "
+	 						+ "ORDER BY " +  Comparison.valueOf(compare).getOrder() + "(?x) LIMIT 1 OFFSET 0";
+	 				String result = executeQuery(query);
+	 				System.out.println(property + "\n");
+	 				if(result != null) return result;
+	 			}
+			} else {
+				for(String cls: classes) {
+	 				String query = "SELECT ?answer WHERE{?answer rdf:type <" + cls + ">. ?answer  <" + Comparison.valueOf(compare).getURI(0) +"> ?x . } "
+	 						+ "ORDER BY " +  Comparison.valueOf(compare).getOrder() + "(?x) LIMIT 1 OFFSET 0";
+	 				String result = executeQuery(query);
+	 				if(result != null) return result;
+				}
+			}
+ 		}
+		
+		return simpleSparql("","");
+ 	}
+	
+	public String listSparql() throws UnsupportedEncodingException {
+		if(classes.size() > 0) {
+			String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+			String result = null;
+		
+			for( String cls: classes) {
+				result = executeQuery("SELECT DISTINCT ?answer WHERE{ ?answer rdf:type <" + cls + ">. ?answer ?x <" + entity + ">. }");
+				if(result != null) return result;
+			}
+		}
+		return simpleSparql("","");
 	}
 	
 	public String sparqlWhen() throws UnsupportedEncodingException {
@@ -51,7 +126,7 @@ public class SparqlQueryBuilder {
 	
 	public String sparqlWho() throws UnsupportedEncodingException {
 		String result = null;
-		if(classes.size() > 0) {
+		if(entityList.size() == 1) {
 			if(q.question.contains("most")) {
 				result = determinerWho("DESC");
 			} else if(q.question.contains("least")) {
@@ -81,13 +156,30 @@ public class SparqlQueryBuilder {
 		return null;
 	}
 	
-
 	private String simpleSparql(String begin, String filter) throws UnsupportedEncodingException {
+		
 		for(String keyword: properties.keySet()) {
  			for(String property : (ArrayList<String>) properties.get(keyword))
 	 			if(property != null) {
+	 				System.out.println(property);
 	 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
 	 				String query = "SELECT ?answer WHERE{" + begin +"<" + entity + "> <" + property + "> ?answer ."+ filter + " }";
+	 				String result = executeQuery(query);
+	 				System.out.println(property + "\n");
+	 				if(result != null) return result;
+	 			}
+ 		}
+		return simpleSparqlBack(begin, filter);
+	}
+	
+	private String simpleSparqlBack(String begin, String filter) throws UnsupportedEncodingException {
+		
+		for(String keyword: properties.keySet()) {
+ 			for(String property : (ArrayList<String>) properties.get(keyword))
+	 			if(property != null) {
+	 				System.out.println(property);
+	 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+	 				String query = "SELECT ?answer WHERE{ ?answer <" + property + "> " + "<" + entity + "> ."+ filter + " }";
 	 				String result = executeQuery(query);
 	 				System.out.println(property + "\n");
 	 				if(result != null) return result;
@@ -116,11 +208,13 @@ public class SparqlQueryBuilder {
  		return executeQuery(query);
  	}
 	
-	private String executeQuery(String q) {		
+	public String executeQuery(String q) {		
 		String result= "";
 		q = PREFIX + q;
 		System.out.println(q + "\n");
 		QueryExecution qe = QueryExecutionFactory.sparqlService(service, q);
+		qe.setTimeout(30000);
+
 		if(this.q.questionType.equals("ASK")) {
 			 return String.valueOf(qe.execAsk());			
 		} else {
@@ -128,6 +222,7 @@ public class SparqlQueryBuilder {
 			
 			while(rs.hasNext()) {
 				QuerySolution s = rs.nextSolution();
+				
 				RDFNode node = s.get("answer");
 				String st = null;
 				if(node.isLiteral())
@@ -139,6 +234,7 @@ public class SparqlQueryBuilder {
 				result = result + st + " ";			
 			}
 		}
+			qe.close();
 		return (result.equals("")) ? null : result;		
 	}
 	
@@ -150,7 +246,7 @@ public class SparqlQueryBuilder {
 		if(tokens[1].equals("many") || tokens[1].equals("much")) {
 				
 		}	else {
-			System.out.println("----");
+			
 			String compare = null;
 			for(Comparison comp: Comparison.values()) {
 				if(q.question.contains(comp.toString().toLowerCase()))
@@ -163,14 +259,18 @@ public class SparqlQueryBuilder {
 					String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
 					String property = null;
 					
+					String classUsed = null;
 					for( String cls: classes) {
 						property = executeQuery("SELECT DISTINCT ?answer WHERE{ ?x rdf:type <" + cls + ">. ?x ?answer <" + entity + ">. }");
-						if(property != null) break;
+						if(property != null) {
+							classUsed = cls;
+							break;
+						}
 					}
 					
 					String[] properties = property.split(" "); 
 		 			for(String p: properties) {
-		 				String query = "SELECT ?answer WHERE{ ?x  <" + p + "> <" +  entity +"> . ?x  <" + Comparison.valueOf(compare).getURI(0) +"> ?answer . } "
+		 				String query = "SELECT ?answer WHERE{ ?x rdf:type <" + classUsed + ">. ?x  <" + p + "> <" +  entity +"> . ?x  <" + Comparison.valueOf(compare).getURI(0) +"> ?answer . } "
 		 						+ "ORDER BY " +  Comparison.valueOf(compare).getOrder() + "(?answer) LIMIT 1 OFFSET 0";
 		 				String result = executeQuery(query);
 		 				System.out.println(property + "\n");

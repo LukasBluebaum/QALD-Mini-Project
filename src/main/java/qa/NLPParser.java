@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Properties;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
@@ -32,12 +35,14 @@ public class NLPParser {
 	
 	private ArrayList<String> verbs;
 	
+	private ArrayList<String> adjectives;
+	
 	private ArrayList<String> nouns;
 		
 	static {
 		Properties props = new Properties();
 	    // props.setProperty("ssplit.eolonly","true");
-	    props.setProperty("annotators","tokenize, ssplit, pos, depparse");
+	    props.setProperty("annotators","tokenize, ssplit, pos, depparse, lemma");
 	    //props.setProperty("annotators", "tokenize, ssplit, pos, lemma");
 	    pipeline = new StanfordCoreNLP(props);
 	}
@@ -47,6 +52,7 @@ public class NLPParser {
  		question.compoundWords = this.compoundWords;
  		question.nouns = this.nouns;
  		question.verbs = this.verbs;
+ 		question.adjectives = this.adjectives;
  		question.comparative = this.comparative;
  		question.superlative = this.superlative;
  		question.subject = this.subject;
@@ -67,6 +73,7 @@ public class NLPParser {
         compoundWords = getCompounds(sentences);
         verbs = removeVerbs(getWords(sentences, "V"));
         nouns = removeNouns(getWords(sentences, "N"));
+        adjectives = getWords(sentences, "JJ");
         
         
         List<String> comparativeList = getWords(sentences,"JJR");
@@ -84,6 +91,11 @@ public class NLPParser {
         System.out.println("\nVerbs:");
         for(String verb: verbs) {
         	System.out.println(verb);
+        }
+        
+        System.out.println("\nAdjectives:");
+        for(String adjective: adjectives) {
+        	System.out.println(adjective);
         }
         
         System.out.println("\nNouns:");
@@ -130,6 +142,7 @@ public class NLPParser {
  		for (CoreMap sentence : sentences) {
             List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
             for(CoreLabel t: tokens) {
+            	System.out.println(t + "--" + t.tag());
             	if(t.tag().startsWith(tag)){
             		String word = t.toString();
             		words.add(word.substring(0, word.lastIndexOf("-")));
@@ -177,5 +190,16 @@ public class NLPParser {
  			found = false;
  		} 		
  		return verbs; 		
+ 	}
+ 	
+ 	public String getLemma(String input) {
+ 		Annotation noun = new Annotation(input);
+ 		pipeline.annotate(noun);
+ 		List<CoreMap> sentences = noun.get(SentencesAnnotation.class);
+ 		if(sentences.size() > 1) return null;
+ 		CoreMap sentence = sentences.get(0);
+ 		List<CoreLabel> token = sentence.get(TokensAnnotation.class);
+ 		System.out.println(token.get(0).get(LemmaAnnotation.class));
+ 		return token.get(0).get(LemmaAnnotation.class);
  	}
 }

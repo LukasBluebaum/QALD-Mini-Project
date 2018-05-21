@@ -12,6 +12,8 @@ public class Question {
 	
 	public ArrayList<String> verbs;
 	
+	public ArrayList<String> adjectives;
+	
 	public ArrayList<String> nouns;
 	
 	public String comparative;

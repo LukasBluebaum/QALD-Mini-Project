@@ -31,14 +31,13 @@ public class QA {
 //		biggest=http://dbpedia.org/ontology/areaTotal
 	
 
-	 private static final String question = "Was the wife of president Lincoln called Mary?";
+	 private static final String question = "List all the musicals with music by Elton John.";
 	
 	 public static void main(String[] args) {
 
-		 String result = null;
+		String result = null;
 
-
-		 QuestionProcessor processor = new QuestionProcessor();
+		QuestionProcessor processor = new QuestionProcessor();
 		 try {
 			result = processor.processQuestion(question);
 		 } catch (UnsupportedEncodingException e) {
