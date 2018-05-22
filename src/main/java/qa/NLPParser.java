@@ -142,8 +142,7 @@ public class NLPParser {
  		for (CoreMap sentence : sentences) {
             List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
             for(CoreLabel t: tokens) {
-            	System.out.println(t + "--" + t.tag());
-            	if(t.tag().startsWith(tag)){
+               	if(t.tag().startsWith(tag)){
             		String word = t.toString();
             		words.add(word.substring(0, word.lastIndexOf("-")));
             	}
@@ -199,7 +198,6 @@ public class NLPParser {
  		if(sentences.size() > 1) return null;
  		CoreMap sentence = sentences.get(0);
  		List<CoreLabel> token = sentence.get(TokensAnnotation.class);
- 		System.out.println(token.get(0).get(LemmaAnnotation.class));
  		return token.get(0).get(LemmaAnnotation.class);
  	}
 }

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.aksw.qa.annotation.index.IndexDBO_classes;
 import org.aksw.qa.annotation.index.IndexDBO_properties;
@@ -25,7 +26,7 @@ public class QuestionProcessor {
 	private NLPParser nlp;
 
 	
-	public String processQuestion(String question) throws UnsupportedEncodingException {
+	public Set<String> processQuestion(String question) throws UnsupportedEncodingException {
 		 q = new Question(question);
 		 q.questionType = "SELECT";
 		 
@@ -38,7 +39,7 @@ public class QuestionProcessor {
 		 differentiateEntities();
 			 
 		 SparqlQueryBuilder builder = new SparqlQueryBuilder(q);
-		 String result = null;
+		 Set<String> result = null;
 		 
 		 String[] tokens = question.split(" ");
 		 
