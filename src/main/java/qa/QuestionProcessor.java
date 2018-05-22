@@ -107,7 +107,7 @@ public class QuestionProcessor {
  		IndexDBO_classes index = new IndexDBO_classes();
  		
 		for(String noun: q.nouns) {
- 			classes .addAll(index.search(nlp.getLemma(noun)));			
+ 			classes.addAll(index.search(nlp.getLemma(noun)));			
  		}
  		
  		for(String compound: q.compoundWords) {
@@ -127,9 +127,13 @@ public class QuestionProcessor {
  		for(Entity e: q.entityList) {
  			String entity = URLDecoder.decode(e.getUris().get(0).toString(), "UTF-8");
  			entity = entity.substring(entity.lastIndexOf("/")+1);
- 			if(index.search(entity).size() == 0) newEntityList.add(e);
+ 			if(index.search(entity.toLowerCase()).size() == 0) {
+ 				System.out.println(index.search(entity) + "---" + entity);
+ 				newEntityList.add(e);
+ 			}
  		}
 
- 		q.entityList = newEntityList; 		
+ 		q.entityList = newEntityList; 	
+
 	}
 }

@@ -9,7 +9,7 @@ import org.aksw.qa.commons.load.LoaderController;
 
 public class QA {
 	
-	 private static final String QUESTION = "How short  is the shortest NBA player";
+	 private static final String QUESTION = "What is the highest mountain in Germany?";
 	 
 	 private static final boolean DEBUG = true;
 	

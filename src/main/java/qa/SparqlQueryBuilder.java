@@ -4,6 +4,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -236,7 +237,7 @@ public class SparqlQueryBuilder {
  	}
 	
 	public Set<String> executeQuery(String q) {		
-		HashSet<String> result =  new HashSet<String>();
+		LinkedHashSet<String> result =  new LinkedHashSet<String>();
 		q = PREFIX + q;
 		System.out.println(q + "\n");
 		QueryExecution qe = QueryExecutionFactory.sparqlService(service, q);
