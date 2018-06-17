@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jsonbuilder.AnswerContainer;
 import org.aksw.qa.commons.datastructure.Entity;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -38,6 +39,8 @@ public class SparqlQueryBuilder {
 	private ArrayList<Entity> entityList;
 		
 	private Question q;
+
+	private String lastUsedQuery = null;
 	
 	public SparqlQueryBuilder(Question q) {
 		this.properties = q.properties;
@@ -49,7 +52,7 @@ public class SparqlQueryBuilder {
 	public Set<String> sparqlWhere() throws UnsupportedEncodingException {
 		if(entityList.size() == 1) {
 			for(String keyword: properties.keySet()) {
-	 			for(String property : (ArrayList<String>) properties.get(keyword))
+	 			for(String property : properties.get(keyword))
 		 			if(property != null) {
 		 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
 		 				String query = "SELECT DISTINCT ?answer WHERE{<" + property + "> rdfs:range dbo:Place ." +"<" + entity + "> <" + property + "> ?answer . }";
@@ -136,7 +139,7 @@ public class SparqlQueryBuilder {
 	}
 	
 	public Set<String> sparqlWhen() throws UnsupportedEncodingException {
- 		Set<String> result = simpleSparql(""," FILTER ( (datatype(?answer) = xsd:date) || (datatype(?answer) = xsd:gYear))");
+		Set<String> result = simpleSparql(""," FILTER ( (datatype(?answer) = xsd:date) || (datatype(?answer) = xsd:gYear))");
  		if(result != null) return result;
  		return lastOptionWhen();
  	}
@@ -168,7 +171,7 @@ public class SparqlQueryBuilder {
 	
 	private Set<String> determinerWho(String order) throws UnsupportedEncodingException {
 		for(String keyword: properties.keySet()) {
- 			for(String property : (ArrayList<String>) properties.get(keyword)) {
+ 			for(String property : properties.get(keyword)) {
 	 			if(property != null) {	 				
 	 				String cls = URLDecoder.decode(classes.get(0), "UTF-8");
 	 				String query = "SELECT ?answer WHERE{ ?answer <" + property + "> ?y . "
@@ -181,16 +184,24 @@ public class SparqlQueryBuilder {
  		}
 		return null;
 	}
-	
+
 	private Set<String> simpleSparql(String begin, String filter) throws UnsupportedEncodingException {
+		return simpleSparql(begin, filter, new AnswerContainer());
+	}
+	
+	private Set<String> simpleSparql(String begin, String filter, AnswerContainer container) throws UnsupportedEncodingException {
 		if(entityList == null) return null;
 		for(String keyword: properties.keySet()) {
- 			for(String property : (ArrayList<String>) properties.get(keyword))
+ 			for(String property : properties.get(keyword))
 	 			if(property != null) {
 	 				System.out.println(property);
 	 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
 	 				String query = "SELECT ?answer WHERE{" + begin +"<" + entity + "> <" + property + "> ?answer ."+ filter + " }";
 	 				Set<String> result = executeQuery(query);
+
+					container.setSparqlQuery(query);
+					container.setAnswers(result);
+
 	 				System.out.println(property + "\n");
 	 				if(result != null) return result;
 	 			}
@@ -201,7 +212,7 @@ public class SparqlQueryBuilder {
 	private Set<String> simpleSparqlBack(String begin, String filter) throws UnsupportedEncodingException {
 		
 		for(String keyword: properties.keySet()) {
- 			for(String property : (ArrayList<String>) properties.get(keyword))
+ 			for(String property : properties.get(keyword))
 	 			if(property != null) {
 	 				System.out.println(property);
 	 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
@@ -217,7 +228,7 @@ public class SparqlQueryBuilder {
 	public Set<String> simpleASK(String begin, String filter) throws UnsupportedEncodingException {
 		if(entityList == null) return null;
 		for(String keyword: properties.keySet()) {
- 			for(String property : (ArrayList<String>) properties.get(keyword))
+ 			for(String property : properties.get(keyword))
 	 			if(property != null) {
 	 				String entity1 = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
 	 				String entity2 = URLDecoder.decode(entityList.get(1).getUris().get(0).toString(), "UTF-8");
@@ -236,7 +247,9 @@ public class SparqlQueryBuilder {
  		return executeQuery(query);
  	}
 	
-	public Set<String> executeQuery(String q) {		
+	public Set<String> executeQuery(String q) {
+
+		lastUsedQuery = q;
 		LinkedHashSet<String> result =  new LinkedHashSet<String>();
 		q = PREFIX + q;
 		System.out.println(q + "\n");
@@ -311,6 +324,9 @@ public class SparqlQueryBuilder {
 	
 		return null;
 	}
-	
+
+	public String getLastUsedQuery() {
+		return lastUsedQuery;
+	}
 	
 }

@@ -25,7 +25,7 @@ public abstract class AbstractQASystem implements QASystem {
 	protected static final String REGEX_URI = "^(\\w+):(\\/\\/)?[-a-zA-Z0-9+&@#\\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\\/%=~_|]";
 	
 	@SuppressWarnings("unchecked")
-	private JSONObject getAnswersAsQALD(Set<String> answers, AnswerType answerType) throws IOException, ParseException {
+	private JSONObject getAnswersAsQALD(Set<String> answers, AnswerType answerType) {
 		if(answerType==null) {
 			answerType = guessAnswerType(answers);
 		}
@@ -76,7 +76,7 @@ public abstract class AbstractQASystem implements QASystem {
 	 * @return
 	 */
 	public AnswerType guessAnswerType(Set<String> answers) {
-		if(answers.size()>=1) {
+		if(answers != null && answers.size()>=1) {
 			Iterator<String> answerIt = answers.iterator();
 			//check if boolean
 			String answer = answerIt.next().toLowerCase();
@@ -144,7 +144,9 @@ public abstract class AbstractQASystem implements QASystem {
 		// sets the answers
 		q.setGoldenAnswers(lang, answers.getAnswers());
 		// sets the answertype as lower case (e.g. resource)
-		q.setAnswerType(answers.getType().toString().toLowerCase());
+
+		if(answers.getType() != null)
+			q.setAnswerType(answers.getType().toString().toLowerCase());
 		//
 		q.setSparqlQuery(lang, answers.getSparqlQuery());
 		try {

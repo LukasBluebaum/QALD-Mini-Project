@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jsonbuilder.AnswerContainer;
 import org.aksw.qa.annotation.index.IndexDBO_classes;
 import org.aksw.qa.annotation.index.IndexDBO_properties;
 import org.aksw.qa.annotation.spotter.Spotlight;
@@ -26,9 +27,11 @@ public class QuestionProcessor {
 	private NLPParser nlp;
 
 	
-	public Set<String> processQuestion(String question) throws UnsupportedEncodingException {
+	public AnswerContainer processQuestion(String question) throws UnsupportedEncodingException {
 		 q = new Question(question);
 		 q.questionType = "SELECT";
+
+		 AnswerContainer container = new AnswerContainer();
 		 
 		 nlp =  new NLPParser();
 		 nlp.annotateQuestion(q);
@@ -48,8 +51,8 @@ public class QuestionProcessor {
 			 case "WHO":	result = builder.sparqlWho();		 
 				 break;
 			 case "HOW":	result = builder.sparqlHow();
-				 break;		 
-			 case "WHERE":	result = builder.sparqlWhere();			 
+				 break;
+			 case "WHERE":	result = builder.sparqlWhere();
 			 	 break;
 			 case "WHAT":	result = builder.sparqlWhat();	
 				 break;
@@ -66,8 +69,11 @@ public class QuestionProcessor {
 					 		result = builder.simpleASK("","");
 				 }			 
 			 break;
-		 }		
-		 return result;
+		 }
+
+		 container.setAnswers(result);
+		 container.setSparqlQuery(builder.getLastUsedQuery());
+		 return container;
 	}
 		
 	private void retrieveNamedEntities(String question) {
