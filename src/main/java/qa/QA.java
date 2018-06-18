@@ -19,7 +19,7 @@ public class QA {
 		 LoadDataset
 	 }
 
-	 private static final DebugMode debugMode = DebugMode.DebugOnline;
+	 private static final DebugMode debugMode = DebugMode.DebugOffline;
 	 private static final boolean DEBUG = true;
 	
 	 public static void main(String[] args) {

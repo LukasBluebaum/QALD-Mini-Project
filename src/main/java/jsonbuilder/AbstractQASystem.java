@@ -1,6 +1,7 @@
 package jsonbuilder;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -44,7 +45,13 @@ public abstract class AbstractQASystem implements QASystem {
 
 		JSONObject results = new JSONObject();
 		JSONArray bindings = new JSONArray();
-		for (String answer : answers) {
+		if(answers == null)
+		{
+			answers = new HashSet<String>();
+		}
+		for (String answer : answers) {	
+			
+				System.out.println("???");
 			JSONObject binding = new JSONObject();
 			JSONObject var = new JSONObject();
 			var.put("type", "literal");
