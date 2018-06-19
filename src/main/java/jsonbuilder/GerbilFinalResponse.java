@@ -17,7 +17,7 @@ public class GerbilFinalResponse {
 	
 	public GerbilFinalResponse setQuestions(Question answer, String lang){
 		GerbilResponseBuilder responseToGerbil = new GerbilResponseBuilder();
-		responseToGerbil.setId(answer.getId());
+		//responseToGerbil.setId(answer.getId());
 		responseToGerbil.setAnswertype(answer.getAnswerType());
 		responseToGerbil.setQuery(answer.getSparqlQuery(lang));
 		log.info("query: " + responseToGerbil.getQuery());

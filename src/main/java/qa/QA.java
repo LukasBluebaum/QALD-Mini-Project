@@ -1,7 +1,10 @@
 package qa;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +30,7 @@ import webservice.WebApplication;
 
 public class QA {
 	
-	 private static final String QUESTION = "What is the highest mountain in Germany?";
+	 private static final String QUESTION = "What is the highest mountain in Australia?";
 
 	 public enum DebugMode {
 	 	DebugOffline,
@@ -37,10 +40,10 @@ public class QA {
 
 	 static List<GerbilResponseBuilder> response = new ArrayList<GerbilResponseBuilder>();
 	 private static QASystem system = new QASystemImpl();
-	 private static final DebugMode debugMode = DebugMode.LoadDataset;
+	 private static final DebugMode debugMode = DebugMode.DebugOffline;
 	 private static final boolean DEBUG = true;
 	 static JSONParser parser = new JSONParser();
-	 public static void main(String[] args) throws ParseException {
+	 public static void main(String[] args) throws ParseException, InterruptedException {
 
 		AnswerContainer result = null;
 	
@@ -52,56 +55,36 @@ public class QA {
 					e.printStackTrace();
 				 }		
 		} else if(debugMode == DebugMode.LoadDataset){
-			List<IQuestion> questions = LoaderController.load(Dataset.QALD8_Test_Multilingual);
-				  
-			for (IQuestion question : questions) {		
+			List<IQuestion> questions = LoaderController.load(Dataset.QALD7_Test_Multilingual);
 			
+			int i = 1;
+			for (IQuestion question : questions) {	
+				
+				Thread.sleep(5000);
 				GerbilFinalResponse resp = system.getAnswersToQuestion2((Question) question, "en");
 				GerbilResponseBuilder grb = resp.getQuestions().get(0);
-				grb.setId(question.getId());
-				
+				grb.setId(Integer.toString(i));
+				i++;
 				System.out.println("ID" + grb.getId());
-				response.add(grb);
-				
-//				 //	result = processor.processQuestion(question.getLanguageToQuestion().get("en"));
-//					 JSONObject answer = system.getAnswersToQuestion((Question) question, "en");
-//					 JSONArray q =  (JSONArray) answer.get("questions");
-//					 JSONObject s = (JSONObject) q.get(0);
-//					
-//					 try {  
-//						System.out.println(q.get(0));
-//						GerbilResponseBuilder grb = objectMapper.readValue(s.toJSONString() ,GerbilResponseBuilder.class);
-//						 grb.setId(Integer.toString(i));
-//						 response.add(grb);
-//						 System.out.println(q);
-//						 i++;
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-				
-				
+				response.add(grb);				
 			}		
 			GerbilFinalResponse finalResponse = new GerbilFinalResponse();
 			finalResponse.setList(response);
+			
 			ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 			String json = null;
 
 			try {
 				json = ow.writeValueAsString(finalResponse);
 			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			System.out.println(response);
-//			System.out.println("------");
-//			System.out.println(parser.parse(json));
-			JSONObject obj = (JSONObject) parser.parse(json);
-			 try (FileWriter file = new FileWriter("solution.json")) {
-					file.write(json);
-					
+			//JSONObject obj = (JSONObject) parser.parse(json);
+			 try {
+					OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("solution2.json"), StandardCharsets.UTF_8);
+					writer.write(json);
+					writer.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			 

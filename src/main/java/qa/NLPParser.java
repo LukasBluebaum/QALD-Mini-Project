@@ -72,7 +72,7 @@ public class NLPParser {
         List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
         compoundWords = getCompounds(sentences);
         verbs = removeVerbs(getWords(sentences, "V"));
-        nouns = removeNouns(getWords(sentences, "N"));
+        nouns = getWords(sentences, "N");
         adjectives = getWords(sentences, "JJ");
         
         

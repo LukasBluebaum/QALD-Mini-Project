@@ -96,7 +96,7 @@ public class QuestionProcessor {
  		
  		//TODO: 
  		for(String noun: q.nouns) {
- 			/*if(!noun.equals(q.subject))*/ properties.put(noun, index.search(noun));
+ 			/*if(!noun.equals(q.subject))*/ properties.put(noun, index.search(nlp.getLemma(noun)));
  		}
  		
  		for(String compound: q.compoundWords) {
@@ -114,14 +114,15 @@ public class QuestionProcessor {
  		IndexDBO_classes index = new IndexDBO_classes();
  		
 		for(String noun: q.nouns) {
+			System.out.println(noun);
  			classes.addAll(index.search(nlp.getLemma(noun)));			
  		}
  		
- 		for(String compound: q.compoundWords) {
- 			String[] com = compound.split(" ");
- 			classes.addAll(index.search(com[0]));
- 			classes.addAll(index.search(com[1]));
- 		}
+// 		for(String compound: q.compoundWords) {
+// 			String[] com = compound.split(" ");
+// 			classes.addAll(index.search(com[0]));
+// 			classes.addAll(index.search(com[1]));
+// 		}
  		System.out.println(classes);
  		q.classes = classes;
  	}

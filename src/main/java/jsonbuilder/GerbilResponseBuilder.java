@@ -29,7 +29,7 @@ public class GerbilResponseBuilder {
 	}
 
 	public GerbilResponseBuilder setId(final String ques) {
-		this.id = "1";
+		this.id = ques;
 		return this;
 	}
 
