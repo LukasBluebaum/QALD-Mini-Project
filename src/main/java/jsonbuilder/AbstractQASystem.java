@@ -51,7 +51,6 @@ public abstract class AbstractQASystem implements QASystem {
 		}
 		for (String answer : answers) {	
 			
-				System.out.println("???");
 			JSONObject binding = new JSONObject();
 			JSONObject var = new JSONObject();
 			var.put("type", "literal");
@@ -174,6 +173,36 @@ public abstract class AbstractQASystem implements QASystem {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+	public GerbilFinalResponse getAnswersToQuestion2(final Question q, String lang) {
+		// gets the prefered question
+		String question = q.getLanguageToQuestion().get(lang);
+
+		// retrieve the answers from the system
+		AnswerContainer answers = retrieveAnswers(question, lang);
+		// sets the answers
+		q.setGoldenAnswers(lang, answers.getAnswers());
+		// sets the answertype as lower case (e.g. resource)
+
+		if(answers.getType() != null)
+			q.setAnswerType(answers.getType().toString().toLowerCase());
+		//
+		q.setSparqlQuery(lang, answers.getSparqlQuery());
+		q.setAnswerAsQALDJSON(getAnswersAsQALD(answers.getAnswers(), answers.getType()));
+
+			// return the answer as a valid qaldJSON string
+			GerbilFinalResponse resp = new GerbilFinalResponse();
+
+			resp.setQuestions(q, lang);
+			return resp;
+		
+	}
+	
 	
 	@Override
 	public void close() {

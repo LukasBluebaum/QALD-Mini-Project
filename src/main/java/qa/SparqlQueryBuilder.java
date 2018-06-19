@@ -50,20 +50,22 @@ public class SparqlQueryBuilder {
 	}
 	
 	public Set<String> sparqlWhere() throws UnsupportedEncodingException {
-		if(entityList.size() == 1) {
-			for(String keyword: properties.keySet()) {
-	 			for(String property : properties.get(keyword))
-		 			if(property != null) {
-		 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
-		 				String query = "SELECT DISTINCT ?answer WHERE{<" + property + "> rdfs:range dbo:Place ." +"<" + entity + "> <" + property + "> ?answer . }";
-		 				Set<String> result = executeQuery(query);
-		 				System.out.println(property + "\n");
-		 				if(result != null) return result;
-		 			}
-	 		}
-			return simpleSparql("","");
-		} else {
-			
+		if(entityList != null) {
+			if(entityList.size() == 1 ) {
+				for(String keyword: properties.keySet()) {
+		 			for(String property : properties.get(keyword))
+			 			if(property != null) {
+			 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+			 				String query = "SELECT DISTINCT ?answer WHERE{<" + property + "> rdfs:range dbo:Place ." +"<" + entity + "> <" + property + "> ?answer . }";
+			 				Set<String> result = executeQuery(query);
+			 				System.out.println(property + "\n");
+			 				if(result != null) return result;
+			 			}
+		 		}
+				return simpleSparql("","");
+			} else {
+				
+			}
 		}
 		return null;
  	}
@@ -85,7 +87,7 @@ public class SparqlQueryBuilder {
  	}
 	
 	private Set<String> superlSparql(String superlative) throws UnsupportedEncodingException {
-		if(entityList != null) {
+		if(entityList != null && entityList.size() > 0 && entityList.get(0).getUris().size() > 0) {
 			System.out.println("----");
 			String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
 			Set<String> property = null;
@@ -243,8 +245,12 @@ public class SparqlQueryBuilder {
 	}
 	
 	private Set<String> lastOptionWhen() {
+		if(entityList != null) {
  		String query = "SELECT ?answer WHERE{<" + entityList.get(0).getUris().get(0) + "> ?property ?answer ." + " FILTER ( datatype(?answer) = xsd:date )}";
+ 		
  		return executeQuery(query);
+		}
+		return null;
  	}
 	
 	public Set<String> executeQuery(String q) {
