@@ -28,6 +28,10 @@ public class GerbilFinalResponse {
 		return this;
 	}
 	
+	public void setList(List<GerbilResponseBuilder> q) {
+		questions = q;
+	}
+	
 	public List<GerbilResponseBuilder> getQuestions(){
 		return questions;
 	}

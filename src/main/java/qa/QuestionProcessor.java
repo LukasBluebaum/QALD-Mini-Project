@@ -59,6 +59,7 @@ public class QuestionProcessor {
 			 case "WHICH":
 				 break;
 			 case "WHEN": 	result = builder.sparqlWhen();
+			 System.out.println(result);
 			 	 break;
 			 default:
 				 if(starting.equals("LIST") || starting.equals("NAME") ||  starting.equals("SHOW") || starting.equals("GIVE")) {

@@ -3,6 +3,8 @@ package qa;
 import org.aksw.qa.commons.datastructure.Question;
 import org.json.simple.JSONObject;
 
+import jsonbuilder.GerbilFinalResponse;
+
 /**
  * QA System interface to 
  */
@@ -25,4 +27,7 @@ public interface QASystem {
 	 * Closes all the resources used
 	 */
 	public void close();
+
+
+	public GerbilFinalResponse getAnswersToQuestion2(Question question, String string);
 }
