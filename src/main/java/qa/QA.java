@@ -49,7 +49,7 @@ public class QA {
 					e.printStackTrace();
 				 }		
 		} else if(debugMode == DebugMode.LoadDataset){
-			List<IQuestion> questions = LoaderController.load(Dataset.QALD8_Test_Multilingual);
+			List<IQuestion> questions = LoaderController.load(Dataset.QALD8_Train_Multilingual);
 			
 			int i = 1;
 			for (IQuestion question : questions) {	
