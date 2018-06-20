@@ -1,7 +1,6 @@
 package qa;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import jsonbuilder.AnswerContainer;
 import org.aksw.qa.commons.datastructure.Entity;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -18,6 +16,7 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.RDFNode;
 
+import jsonbuilder.AnswerContainer;
 import utils.Comparison;
 import utils.Question;
 
@@ -196,20 +195,15 @@ public class SparqlQueryBuilder {
 	}
 	
 	private Set<String> simpleSparql(String begin, String filter, AnswerContainer container) throws UnsupportedEncodingException {
-		if(entityList == null) return null;
+		if(entityList == null || entityList.size() < 1) return null;
 		for(String keyword: properties.keySet()) {
  			for(String property : properties.get(keyword))
 	 			if(property != null) {
 	 				System.out.println(property);
-	 				
+	 					 				
 	 				String entity = new String(entityList.get(0).getUris().get(0).toString().getBytes(), "UTF-8");
-	 				String query = "";
-	 				if(filter.equals(" FILTER ( (datatype(?answer) = xsd:date) || (datatype(?answer) = xsd:gYear))")) {
-	 					query = "SELECT ?answer WHERE{" + begin +"<" + entity + "> <" + property + "> ?answer ."+ filter + " } LIMIT 1";
-	 				} else {
-	 					query = "SELECT ?answer WHERE{" + begin +"<" + entity + "> <" + property + "> ?answer ."+ filter + " }";
-	 				}
-	 				
+	 				String query = "SELECT ?answer WHERE{" + begin +"<" + entity + "> <" + property + "> ?answer ."+ filter + " }";
+ 				
 	 				Set<String> result = executeQuery(query);
 
 					container.setSparqlQuery(query);
@@ -302,7 +296,9 @@ public class SparqlQueryBuilder {
 				String st = null;
 				if(node.isLiteral()) {
 					st = node.asLiteral().toString();
-					st = st.substring(0,st.indexOf("^^"));
+					st = st.indexOf("^^") != -1 ?  st.substring(0,st.indexOf("^^")) : st;
+					result.add(st);
+					break;
 				}									
 				else {
 					 st = node.asResource().toString();
@@ -332,7 +328,7 @@ public class SparqlQueryBuilder {
 		 				Set<String> result = executeQuery(query);
 
 		 				System.out.println(property + "\n");
-		 				if(result != null) return result;
+		 				if(result != null && result.iterator().hasNext() && Integer.parseInt(result.iterator().next()) != 0) return result; 		 				
 		 			}
 	 		}
 		} else {

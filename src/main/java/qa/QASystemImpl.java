@@ -1,10 +1,9 @@
 package qa;
 
+import java.io.UnsupportedEncodingException;
+
 import jsonbuilder.AbstractQASystem;
 import jsonbuilder.AnswerContainer;
-
-import java.io.UnsupportedEncodingException;
-import java.util.Set;
 
 public class QASystemImpl extends AbstractQASystem {
     @Override

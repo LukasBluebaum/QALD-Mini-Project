@@ -66,7 +66,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Adele> <http://dbpedia.org/ontology/birthPlace> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Adele> <http://dbpedia.org/ontology/birthPlace> ?answer . }"
     },
     "answers" : [ {
       "head" : {
@@ -107,14 +107,19 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : null
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT (COUNT(DISTINCT ?a) AS ?answer) WHERE{<http://dbpedia.org/resource/Bertrand_Russell> <http://dbpedia.org/ontology/award> ?a . } "
     },
     "answers" : [ {
       "head" : {
-        "vars" : [ "empty" ]
+        "vars" : [ "literal" ]
       },
       "results" : {
-        "bindings" : [ ]
+        "bindings" : [ {
+          "literal" : {
+            "type" : "literal",
+            "value" : "0"
+          }
+        } ]
       }
     } ]
   }, {
@@ -143,7 +148,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Association_football> ?property ?answer . FILTER ( datatype(?answer) = xsd:date )} LIMIT 1 OFFSET 0"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Association_football> ?property ?answer . FILTER ( datatype(?answer) = xsd:date )} LIMIT 1"
     },
     "answers" : [ {
       "head" : {
@@ -179,7 +184,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Düsseldorf_Airport> <http://dbpedia.org/ontology/elevation> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Düsseldorf_Airport> <http://dbpedia.org/ontology/elevation> ?answer . }"
     },
     "answers" : [ {
       "head" : {
@@ -202,7 +207,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/European_Union> <http://dbpedia.org/ontology/populationTotal> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/European_Union> <http://dbpedia.org/ontology/populationTotal> ?answer . }"
     },
     "answers" : [ {
       "head" : {
@@ -330,7 +335,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Carolina_Reaper> <http://dbpedia.org/ontology/origin> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Carolina_Reaper> <http://dbpedia.org/ontology/origin> ?answer . }"
     },
     "answers" : [ {
       "head" : {
@@ -353,7 +358,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Mexico_City> <http://dbpedia.org/ontology/populationUrban> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Mexico_City> <http://dbpedia.org/ontology/populationUrban> ?answer . }"
     },
     "answers" : [ {
       "head" : {
@@ -376,7 +381,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Baghdad> <http://dbpedia.org/ontology/leaderName> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Baghdad> <http://dbpedia.org/ontology/leaderName> ?answer . }"
     },
     "answers" : [ {
       "head" : {
@@ -417,7 +422,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Brazil> <http://dbpedia.org/ontology/percentageOfAreaWater> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Brazil> <http://dbpedia.org/ontology/percentageOfAreaWater> ?answer . }"
     },
     "answers" : [ {
       "head" : {
@@ -440,7 +445,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Iraq> <http://dbpedia.org/ontology/populationTotal> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Iraq> <http://dbpedia.org/ontology/populationTotal> ?answer . }"
     },
     "answers" : [ {
       "head" : {
@@ -481,7 +486,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Cairo> <http://dbpedia.org/ontology/populationMetro> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Cairo> <http://dbpedia.org/ontology/populationMetro> ?answer . }"
     },
     "answers" : [ {
       "head" : {
@@ -576,14 +581,19 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : null
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT (COUNT(DISTINCT ?a) AS ?answer) WHERE{<http://dbpedia.org/resource/Association_football> <http://dbpedia.org/property/battlesWon> ?a . } "
     },
     "answers" : [ {
       "head" : {
-        "vars" : [ "empty" ]
+        "vars" : [ "literal" ]
       },
       "results" : {
-        "bindings" : [ ]
+        "bindings" : [ {
+          "literal" : {
+            "type" : "literal",
+            "value" : "0"
+          }
+        } ]
       }
     } ]
   }, {
@@ -594,7 +604,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : null
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{ ?answer <http://dbpedia.org/property/albumParameterTitle.> <http://dbpedia.org/resource/Pink> . }"
     },
     "answers" : [ {
       "head" : {
@@ -612,7 +622,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/William_Shakespeare> <http://dbpedia.org/ontology/deathYear> ?answer . FILTER ( (datatype(?answer) = xsd:date) || (datatype(?answer) = xsd:gYear)) } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/William_Shakespeare> <http://dbpedia.org/ontology/deathYear> ?answer . FILTER ( (datatype(?answer) = xsd:date) || (datatype(?answer) = xsd:gYear)) }"
     },
     "answers" : [ {
       "head" : {
@@ -694,7 +704,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : null
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT DISTINCT ?answer WHERE{ ?answer rdf:type <http://dbpedia.org/ontology/Beer>. ?answer ?x <http://dbpedia.org/resource/Brewing>. }"
     },
     "answers" : [ {
       "head" : {
@@ -735,7 +745,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : null
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{ ?answer <http://dbpedia.org/property/advisorAdministration&Finance> <http://dbpedia.org/resource/Germany> . }"
     },
     "answers" : [ {
       "head" : {
@@ -848,14 +858,19 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : null
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Elephant> <http://dbpedia.org/ontology/class> ?answer . }"
     },
     "answers" : [ {
       "head" : {
-        "vars" : [ "empty" ]
+        "vars" : [ "resource" ]
       },
       "results" : {
-        "bindings" : [ ]
+        "bindings" : [ {
+          "resource" : {
+            "type" : "resource",
+            "value" : "http://dbpedia.org/resource/Mammalia"
+          }
+        } ]
       }
     } ]
   }, {
@@ -884,17 +899,42 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Dan_Brown> <http://dbpedia.org/ontology/notableWork> ?answer . } LIMIT 1"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Dan_Brown> <http://dbpedia.org/ontology/notableWork> ?answer . }"
     },
     "answers" : [ {
       "head" : {
-        "vars" : [ "resource" ]
+        "vars" : [ "literal" ]
       },
       "results" : {
         "bindings" : [ {
-          "resource" : {
-            "type" : "resource",
+          "literal" : {
+            "type" : "literal",
             "value" : "http://dbpedia.org/resource/The_Da_Vinci_Code"
+          }
+        }, {
+          "literal" : {
+            "type" : "literal",
+            "value" : "http://dbpedia.org/resource/Angels_&_Demons"
+          }
+        }, {
+          "literal" : {
+            "type" : "literal",
+            "value" : "http://dbpedia.org/resource/Deception_Point"
+          }
+        }, {
+          "literal" : {
+            "type" : "literal",
+            "value" : "http://dbpedia.org/resource/Digital_Fortress"
+          }
+        }, {
+          "literal" : {
+            "type" : "literal",
+            "value" : "http://dbpedia.org/resource/The_Lost_Symbol"
+          }
+        }, {
+          "literal" : {
+            "type" : "literal",
+            "value" : "http://dbpedia.org/resource/Inferno_(Dan_Brown_novel)"
           }
         } ]
       }
@@ -925,7 +965,7 @@
       "language" : "en"
     } ],
     "query" : {
-      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Friends> ?property ?answer . FILTER ( datatype(?answer) = xsd:date )} LIMIT 1 OFFSET 0"
+      "sparql" : "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dbp:  <http://dbpedia.org/property/> \nPREFIX dbo:  <http://dbpedia.org/ontology/> \nPREFIX    : <http://dbpedia.org/resource/>  \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\nSELECT ?answer WHERE{<http://dbpedia.org/resource/Friends> ?property ?answer . FILTER ( datatype(?answer) = xsd:date )} LIMIT 1"
     },
     "answers" : [ {
       "head" : {

@@ -56,7 +56,7 @@ public class QuestionProcessor {
 			 	 break;
 			 case "WHAT":	result = builder.sparqlWhat();	
 				 break;
-			 case "WHICH":
+			 case "WHICH": result = builder.listSparql();
 				 break;
 			 case "WHEN": 	result = builder.sparqlWhen();
 			 System.out.println(result);
@@ -93,10 +93,9 @@ public class QuestionProcessor {
  		for(String adjective: q.adjectives) {
  			properties.put(adjective, index.search(adjective));
  		}
- 		
- 		//TODO: 
+ 		 
  		for(String noun: q.nouns) {
- 			/*if(!noun.equals(q.subject))*/ properties.put(noun, index.search(nlp.getLemma(noun)));
+ 			/*if(!noun.equals(q.subject))*/ properties.put(noun, index.search(noun));
  		}
  		
  		for(String compound: q.compoundWords) {

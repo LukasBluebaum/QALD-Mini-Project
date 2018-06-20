@@ -1,24 +1,16 @@
 package qa;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import jsonbuilder.AnswerContainer;
-import jsonbuilder.GerbilFinalResponse;
-import jsonbuilder.GerbilResponseBuilder;
 
 import org.aksw.qa.commons.datastructure.IQuestion;
 import org.aksw.qa.commons.datastructure.Question;
 import org.aksw.qa.commons.load.Dataset;
 import org.aksw.qa.commons.load.LoaderController;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -26,11 +18,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import jsonbuilder.AnswerContainer;
+import jsonbuilder.GerbilFinalResponse;
+import jsonbuilder.GerbilResponseBuilder;
 import webservice.WebApplication;
 
 public class QA {
 	
-	 private static final String QUESTION = "What is the highest mountain in Australia?";
+	 private static final String QUESTION = "how many awards has Bertrand Russell?";
 
 	 public enum DebugMode {
 	 	DebugOffline,
@@ -40,8 +35,7 @@ public class QA {
 
 	 static List<GerbilResponseBuilder> response = new ArrayList<GerbilResponseBuilder>();
 	 private static QASystem system = new QASystemImpl();
-	 private static final DebugMode debugMode = DebugMode.DebugOffline;
-	 private static final boolean DEBUG = true;
+	 private static final DebugMode debugMode = DebugMode.LoadDataset;
 	 static JSONParser parser = new JSONParser();
 	 public static void main(String[] args) throws ParseException, InterruptedException {
 
@@ -55,7 +49,7 @@ public class QA {
 					e.printStackTrace();
 				 }		
 		} else if(debugMode == DebugMode.LoadDataset){
-			List<IQuestion> questions = LoaderController.load(Dataset.QALD7_Test_Multilingual);
+			List<IQuestion> questions = LoaderController.load(Dataset.QALD8_Test_Multilingual);
 			
 			int i = 1;
 			for (IQuestion question : questions) {	
@@ -79,7 +73,7 @@ public class QA {
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
-			//JSONObject obj = (JSONObject) parser.parse(json);
+
 			 try {
 					OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("solution2.json"), StandardCharsets.UTF_8);
 					writer.write(json);
