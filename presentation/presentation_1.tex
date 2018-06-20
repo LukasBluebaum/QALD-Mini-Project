@@ -164,6 +164,19 @@ University of Paderborn \\ % Your institution for the title page
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Webservice}
+	\begin{itemize}
+		\item Using the GerbilQA-Benchmarking-Template
+		\begin{itemize}
+			\item Webserver via the Spring Framework
+			\item Takes a HTTP-POST Request containing the Question
+		\end{itemize}
+		\item Passes the question to the QuestionEngine
+		\item Returns a JSON-File conatining the answer and the used query
+	\end{itemize}
+\end{frame}
+
 %------------------------------------------------
 \section{Question Preprocessing}
 %------------------------------------------------
