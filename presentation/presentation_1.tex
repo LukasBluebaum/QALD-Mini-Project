@@ -152,6 +152,31 @@ University of Paderborn \\ % Your institution for the title page
 \end{center}
 \end{frame}
 
+\begin{frame}
+\frametitle{QA System}
+\begin{itemize}
+	\item Three modes:
+	\begin{itemize}		
+		\item Run offline: tries to answer one committed question
+		\item Answer Dataset Questions: Load QALD Dataset and save the result as JSON-File (list of questions and their answers)
+		\item Can be used as a webservice
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Webservice}
+	\begin{itemize}
+		\item Using the GerbilQA-Benchmarking-Template
+		\begin{itemize}
+			\item Webserver via the Spring Framework
+			\item Takes a HTTP-POST Request containing the Question
+		\end{itemize}
+		\item Passes the question to the QuestionEngine
+		\item Returns a JSON-File conatining the answer and the used query
+	\end{itemize}
+\end{frame}
+
 %------------------------------------------------
 \section{Question Preprocessing}
 %------------------------------------------------
@@ -162,7 +187,7 @@ University of Paderborn \\ % Your institution for the title page
 	\item Determining which method to build a sparql query should be applied
 	\item Classifies questions by their starting word
 	\begin{itemize}
-		\item e.g. „When“ we can conclude from that, that the given result should be from the datatype date or year
+		\item e.g. "When": we can conclude from that, that the given result should be from the datatype date or year
 		\item distinguish between ASK and SELECT clause
 	\end{itemize}
 \end{itemize}
@@ -228,12 +253,25 @@ University of Paderborn \\ % Your institution for the title page
 \end{columns}
 \end{frame}
 
+
 \begin{frame}
-\frametitle{Sparql Query Templates \\ {\normalsize Example }}
+\frametitle{Sparql Query Templates \\ {\normalsize Example Query}}
+\begin{example}[largest]
 	\begin{itemize}
-	\item Example:
+		\item Question: "What is the largest country in the world?"
+		\item Zero Entities
+		\item One Class: Country
+		\item Comparison enum: largest ( dbo:areaTotal )
+		\item Order: DESC 
+		\item Query $\Rightarrow$ SELECT ?answer WHERE \{ \\
+		\tab[1.4cm] 	?answer rdf:type $<$http://dbpedia.org/ontology/Country$>$. 
+		\tab[1.4cm] 	?answer  $<$http://dbpedia.org/ontology/areaTotal$>$ ?area .\} 
+		\tab[1.4cm] 	ORDER BY DESC(?area) LIMIT 1 OFFSET 0
+
 	\end{itemize}
+\end{example}
 \end{frame}
+
 
 %------------------------------------------------
 \section{Benchmarking}
