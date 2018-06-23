@@ -3,6 +3,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -400,4 +401,25 @@ public class SparqlQueryBuilder {
 	public int getEntityIndex() {
 		return entityIndex;
 	}
+	
+	public static String rank(List<String> pProperty) {
+		int max = -1;
+		String bestProperty = "";
+		for(String property : pProperty) {
+		
+		String q = PREFIX + "SELECT (count(*) AS ?number) {?x  <" + property + "> ?y.  }";	
+		QueryExecution qe = QueryExecutionFactory.sparqlService(service, q);
+		ResultSet rs = qe.execSelect();	
+		if(rs.hasNext()) {
+			QuerySolution s = rs.nextSolution();			
+			RDFNode node = s.get("?number");
+			System.out.println(property + " : " + node.asLiteral().getInt());
+			if(node.asLiteral().getInt() > max) {
+				max = node.asLiteral().getInt();
+				bestProperty = property;
+			}
+			
+	}}
+		return bestProperty;
+	}	
 }

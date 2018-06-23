@@ -27,7 +27,8 @@ public class QuestionProcessor {
 	private Question q;
 	
 	private NLPParser nlp;
-
+	
+	SparqlQueryBuilder builder; 
 	
 	public AnswerContainer processQuestion(String question) throws UnsupportedEncodingException {
 		 q = new Question(question);
@@ -43,7 +44,7 @@ public class QuestionProcessor {
 		 findClasses();
 		 differentiateEntities();
 			 
-		 SparqlQueryBuilder builder = new SparqlQueryBuilder(q);
+		 builder = new SparqlQueryBuilder(q);
 		 Set<String> result = null;
 		 
 		 String[] tokens = question.split(" ");
@@ -111,14 +112,14 @@ public class QuestionProcessor {
  			if(!com[1].equals(q.subject)) properties.put(com[1], index.search(com[1]));
  		}
  		
- 		SimpleQuantityRanker sqr = new SimpleQuantityRanker();
+ 		
  	
  		for(String keyword: properties.keySet()) {
- 			if(!properties.get(keyword).isEmpty() && properties.get(keyword).contains("http://dbpedia.org/ontology/") ) {
- 			System.out.println(properties.get(keyword));
- 			String s = sqr.rank( properties.get(keyword));
+ 			if(!properties.get(keyword).isEmpty() ) {
+ 			String s = SparqlQueryBuilder.rank(  properties.get(keyword)); 			
  			properties.get(keyword).remove(s);
- 			properties.get(keyword).add(0, s);
+            properties.get(keyword).add(0, s);
+ 			
  			}
  			}
  		System.out.println("Properties:" + properties);

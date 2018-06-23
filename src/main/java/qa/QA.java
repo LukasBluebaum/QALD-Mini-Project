@@ -35,7 +35,7 @@ public class QA {
 
 	 static List<GerbilResponseBuilder> response = new ArrayList<GerbilResponseBuilder>();
 	 private static QASystem system = new QASystemImpl();
-	 private static final DebugMode debugMode = DebugMode.DebugOffline;
+	 private static final DebugMode debugMode = DebugMode.LoadDataset;
 	 static JSONParser parser = new JSONParser();
 	 public static void main(String[] args) throws ParseException, InterruptedException {
 
@@ -49,12 +49,12 @@ public class QA {
 					e.printStackTrace();
 				 }		
 		} else if(debugMode == DebugMode.LoadDataset){
-			List<IQuestion> questions = LoaderController.load(Dataset.QALD8_Test_Multilingual);
+			List<IQuestion> questions = LoaderController.load(Dataset.QALD8_Train_Multilingual);
 			
 			int i = 1;
 			for (IQuestion question : questions) {	
 				
-				Thread.sleep(1000);
+				Thread.sleep(3000);
 				GerbilFinalResponse resp = system.getAnswersToQuestion2((Question) question, "en");
 				GerbilResponseBuilder grb = resp.getQuestions().get(0);
 				grb.setId(Integer.toString(i));
