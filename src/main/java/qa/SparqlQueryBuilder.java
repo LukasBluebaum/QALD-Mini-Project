@@ -42,6 +42,8 @@ public class SparqlQueryBuilder {
 
 	private String lastUsedQuery = null;
 	
+	private int entityIndex = 0;
+	
 	public SparqlQueryBuilder(Question q) {
 		this.properties = q.properties;
 		this.classes = q.classes;
@@ -55,7 +57,7 @@ public class SparqlQueryBuilder {
 				for(String keyword: properties.keySet()) {
 		 			for(String property : properties.get(keyword))
 			 			if(property != null) {
-			 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+			 				String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
 			 				String query = "SELECT DISTINCT ?answer WHERE{<" + property + "> rdfs:range dbo:Place ." +"<" + entity + "> <" + property + "> ?answer . }";
 			 				Set<String> result = executeQuery(query);
 			 				System.out.println(property + "\n");
@@ -87,9 +89,9 @@ public class SparqlQueryBuilder {
  	}
 	
 	private Set<String> superlSparql(String superlative) throws UnsupportedEncodingException {
-		if(entityList != null && entityList.size() > 0 && entityList.get(0).getUris().size() > 0) {
+		if(entityList != null && entityList.size() > 0 && entityList.get(entityIndex).getUris().size() > 0) {
 			System.out.println("----");
-			String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+			String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
 			Set<String> property = null;
 
 			String classUsed = null;
@@ -124,7 +126,7 @@ public class SparqlQueryBuilder {
 		
 		if(entityList == null) return null;
 		if(classes != null && classes.size() > 0 && entityList.size() > 0 ) {
-			String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+			String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
 			if(q.comparative != null && !q.comparative.equals("more") && !q.comparative.equals("less")) {			
 				
 				Comparison comp = Comparison.valueOf(q.comparative);
@@ -206,7 +208,7 @@ public class SparqlQueryBuilder {
 	 			if(property != null) {
 	 				System.out.println(property);
 	 					 				
-	 				String entity = new String(entityList.get(0).getUris().get(0).toString().getBytes(), "UTF-8");
+	 				String entity = new String(entityList.get(entityIndex).getUris().get(0).toString().getBytes(), "UTF-8");
 	 				String query = "SELECT ?answer WHERE{" + begin +"<" + entity + "> <" + property + "> ?answer ."+ filter + " }";
  				
 	 				Set<String> result = executeQuery(query);
@@ -227,7 +229,7 @@ public class SparqlQueryBuilder {
  			for(String property : properties.get(keyword))
 	 			if(property != null) {
 	 				System.out.println(property);
-	 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+	 				String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
 	 				String query = "SELECT ?answer WHERE{ ?answer <" + property + "> " + "<" + entity + "> ."+ filter + " }";
 	 				Set<String> result = executeQuery(query);
 	 				System.out.println(property + "\n");
@@ -243,7 +245,7 @@ public class SparqlQueryBuilder {
 			for(String keyword: properties.keySet()) {
 	 			for(String property : properties.get(keyword))
 		 			if(property != null) {
-		 				String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");		 				
+		 				String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");		 				
 		 				String query = "ASK WHERE{" + begin +"<" + entity + "> <" + property + "> ?x . "+ filter + " }";
 		 				Set<String> result = executeQuery(query);
 		 				System.out.println(property + "\n");
@@ -254,7 +256,7 @@ public class SparqlQueryBuilder {
 			for(String keyword: properties.keySet()) {
 	 			for(String property : properties.get(keyword))
 		 			if(property != null) {
-		 				String entity1 = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+		 				String entity1 = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
 		 				String entity2 = URLDecoder.decode(entityList.get(1).getUris().get(0).toString(), "UTF-8");
 		 				String query = "ASK WHERE{" + begin +"<" + entity1 + "> <" + property + "> <" + entity2 + "> . "+ filter + " }";
 		 				Set<String> result = executeQuery(query);
@@ -269,7 +271,7 @@ public class SparqlQueryBuilder {
 	
 	private Set<String> lastOptionWhen()  {
 		if(entityList != null) {
- 		String query = "SELECT ?answer WHERE{<" + entityList.get(0).getUris().get(0) + "> ?property ?answer ." + " FILTER ( datatype(?answer) = xsd:date )} LIMIT 1";		
+ 		String query = "SELECT ?answer WHERE{<" + entityList.get(entityIndex).getUris().get(0) + "> ?property ?answer ." + " FILTER ( datatype(?answer) = xsd:date )} LIMIT 1";		
  		return executeQuery(query);
 		}
 		return null;
@@ -328,7 +330,7 @@ public class SparqlQueryBuilder {
 	 			for(String property : properties.get(keyword))
 		 			if(property != null && entityList != null && !entityList.isEmpty() ) {
 		 				System.out.println(property);		 				
-		 				String entity = new String(entityList.get(0).getUris().get(0).toString().getBytes(), "UTF-8");		 						 				
+		 				String entity = new String(entityList.get(entityIndex).getUris().get(0).toString().getBytes(), "UTF-8");		 						 				
 		 				String query = "SELECT (COUNT(DISTINCT ?a) AS ?answer) WHERE{<" + entity + "> <" + property + "> ?a . } ";		 					 				
 		 				Set<String> result = executeQuery(query);
 
@@ -348,7 +350,7 @@ public class SparqlQueryBuilder {
 			if(compare != null && compare.toLowerCase().equals(q.superlative) && entityList != null && !entityList.isEmpty()) {
 				
 					System.out.println("----");
-					String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+					String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
 					Set<String> property = null;
 					
 					String classUsed = null;
@@ -371,7 +373,7 @@ public class SparqlQueryBuilder {
 			
 	 		} else {
 	 			if(compare != null && entityList != null && !entityList.isEmpty())  {
-	 			String entity = URLDecoder.decode(entityList.get(0).getUris().get(0).toString(), "UTF-8");
+	 			String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
 	 			String query = "SELECT ?answer WHERE{  <"+ entity +"> <" + Comparison.valueOf(compare).getURI(0) +"> ?answer . } ";
 	 			Set<String> result = executeQuery(query); 	
 	 			
@@ -387,4 +389,15 @@ public class SparqlQueryBuilder {
 		return lastUsedQuery;
 	}
 	
+	public void incrementIndex() {
+		entityIndex++;
+	}
+	
+	public void resetIndex() {
+	   entityIndex = 0;
+	}  
+	
+	public int getEntityIndex() {
+		return entityIndex;
+	}
 }

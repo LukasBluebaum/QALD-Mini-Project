@@ -25,7 +25,7 @@ import webservice.WebApplication;
 
 public class QA {
 	
-	 private static final String QUESTION = "how many awards has Bertrand Russell?";
+	 private static final String QUESTION = "What is the alma mater of the chancellor of Germany Angela Merkel";
 
 	 public enum DebugMode {
 	 	DebugOffline,
@@ -49,12 +49,12 @@ public class QA {
 					e.printStackTrace();
 				 }		
 		} else if(debugMode == DebugMode.LoadDataset){
-			List<IQuestion> questions = LoaderController.load(Dataset.QALD8_Train_Multilingual);
+			List<IQuestion> questions = LoaderController.load(Dataset.QALD8_Test_Multilingual);
 			
 			int i = 1;
 			for (IQuestion question : questions) {	
 				
-				Thread.sleep(5000);
+				Thread.sleep(1000);
 				GerbilFinalResponse resp = system.getAnswersToQuestion2((Question) question, "en");
 				GerbilResponseBuilder grb = resp.getQuestions().get(0);
 				grb.setId(Integer.toString(i));

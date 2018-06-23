@@ -3,6 +3,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Set;
 import jsonbuilder.AnswerContainer;
 import org.aksw.qa.annotation.index.IndexDBO_classes;
 import org.aksw.qa.annotation.index.IndexDBO_properties;
+import org.aksw.qa.annotation.sparql.SimpleQuantityRanker;
 import org.aksw.qa.annotation.spotter.Spotlight;
 import org.aksw.qa.commons.datastructure.Entity;
 
@@ -47,6 +49,8 @@ public class QuestionProcessor {
 		 String[] tokens = question.split(" ");
 		 
 		 String starting = tokens[0].toUpperCase();
+		 
+		 do {
 		 switch(starting) {
 			 case "WHO":	result = builder.sparqlWho();		 
 				 break;
@@ -71,6 +75,9 @@ public class QuestionProcessor {
 				 }			 
 			 break;
 		 }
+		 
+		 builder.incrementIndex();
+		 }while((result == null ||result.isEmpty() ) && q.entityList != null && q.entityList.size()>1 && builder.getEntityIndex()<q.entityList.size());
 
 		 container.setAnswers(result);
 		 container.setSparqlQuery(builder.getLastUsedQuery());
@@ -103,6 +110,16 @@ public class QuestionProcessor {
  			if(!com[0].equals(q.subject)) properties.put(com[0], index.search(com[0]));
  			if(!com[1].equals(q.subject)) properties.put(com[1], index.search(com[1]));
  		}
+ 		
+ 		SimpleQuantityRanker sqr = new SimpleQuantityRanker();
+ 	
+ 		for(String keyword: properties.keySet()) {
+ 			if(!properties.get(keyword).isEmpty()) {
+ 			String s = sqr.rank( properties.get(keyword));
+ 			properties.get(keyword).remove(s);
+ 			properties.get(keyword).add(0, s);
+ 			}
+ 			}
  		System.out.println("Properties:" + properties);
  		q.properties = properties;
  	}
@@ -122,7 +139,7 @@ public class QuestionProcessor {
 // 			classes.addAll(index.search(com[0]));
 // 			classes.addAll(index.search(com[1]));
 // 		}
- 		System.out.println(classes);
+ 		System.out.println("Classes:" + classes);
  		q.classes = classes;
  	}
 	
@@ -136,11 +153,12 @@ public class QuestionProcessor {
  			entity = entity.substring(entity.lastIndexOf("/")+1);
  			if(index.search(entity.toLowerCase()).size() == 0) {
  				System.out.println(index.search(entity) + "---" + entity);
- 				newEntityList.add(e);
+ 				newEntityList.add(e); 				
  			}
  		}
 
  		q.entityList = newEntityList; 	
+ 		System.out.println("Entities:" + q.entityList);
 
 	}
 }
