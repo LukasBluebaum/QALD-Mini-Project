@@ -25,7 +25,7 @@ import webservice.WebApplication;
 
 public class QA {
 	
-	 private static final String QUESTION = "What is the alma mater of the chancellor of Germany Angela Merkel";
+	 private static final String QUESTION = "When was Einstein born?";
 
 	 public enum DebugMode {
 	 	DebugOffline,
@@ -35,7 +35,7 @@ public class QA {
 
 	 static List<GerbilResponseBuilder> response = new ArrayList<GerbilResponseBuilder>();
 	 private static QASystem system = new QASystemImpl();
-	 private static final DebugMode debugMode = DebugMode.LoadDataset;
+	 private static final DebugMode debugMode = DebugMode.DebugOffline;
 	 static JSONParser parser = new JSONParser();
 	 public static void main(String[] args) throws ParseException, InterruptedException {
 

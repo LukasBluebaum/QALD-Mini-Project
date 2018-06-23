@@ -114,7 +114,8 @@ public class QuestionProcessor {
  		SimpleQuantityRanker sqr = new SimpleQuantityRanker();
  	
  		for(String keyword: properties.keySet()) {
- 			if(!properties.get(keyword).isEmpty()) {
+ 			if(!properties.get(keyword).isEmpty() && properties.get(keyword).contains("http://dbpedia.org/ontology/") ) {
+ 			System.out.println(properties.get(keyword));
  			String s = sqr.rank( properties.get(keyword));
  			properties.get(keyword).remove(s);
  			properties.get(keyword).add(0, s);
