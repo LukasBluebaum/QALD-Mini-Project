@@ -3,3 +3,6 @@
 .classpath
 .project
 log.out
+report/technical_report.synctex.gz
+report/technical_report.log
+report/technical_report.aux
