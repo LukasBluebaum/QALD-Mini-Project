@@ -43,7 +43,22 @@ The abstract should briefly summarize the contents of the paper in
 %
 %
 %
-\section{Introduction} (Ralf)
+\section{Introduction (Ralf)}  
+
+The World Wide Web is filled with information for everyone to explore. Most information on the Web is unstructured, what makes it hard to process for humans and computers. The Semantic Web is a approach to provide structured data in the Web that is easy to process by computers and can be processed to be easily understood by humans. \\
+
+Most Semantic Web Databases use SPARQL as the language to query the database. That means that in order to search the semantic web the user has to learn a query language, that is not very easy to learn. This is not user friendly and can be improved. \\
+
+The goal of our project is to provide a interface that takes a question formulated in natural language and answers it by querying DBPedia. The interface will be able to be used over the web via HTTP-POST requests. \\
+
+Our project uses a Template-based approach. That means we have defined templates of SPARQL-Queries that are modified at predefined locations based on the question asked. The project consists of three components: The \emph{Question-Answering (QA) Engine}, the \emph{Question-Processor} and the \emph{SPARQLQueryBuilder}. \\
+
+The \emph{QA Engine} is responsible for providing the interface to users. It reads questions from the Webservice or a predefined dataset and passes the question to the Question Processor. Furthermore the QA Engine is responsible for outputting the answer, i.e sending a HTTP-Response to the user. \\
+
+Relevant entities contained in the question have to be identified and the question has to be analyzed to determine the type of the question. This is done by the \emph{Question Processor} component. \\
+
+To get a answer a SPARQL-Query has to be build and executed on a endpoint. That is the responsibility of the \emph{SPARQLQueryBuilder}. This component uses the processed information provided by the Question Processor, builds a SPARQL-Query by using predefined templates and executes the query on an endpoint provided by DBPedia. 
+
 \pagebreak
 \section{Simplified Procedure} (Nick)
 \begin{figure}
