@@ -70,7 +70,55 @@ To get a answer a SPARQL-Query has to be build and executed on a endpoint. That 
 
 \section{QA System} (Ralf)
 
+\begin{itemize}
+
+	\item Responsible for fetching questions and relaying them to the Question Processor
+		\begin{itemize}
+			\item Load datasets
+			\item Webservice
+			\item Single compile-time question
+		\end{itemize}
+
+	\item Consists of two subcomponents
+		\begin{itemize}
+			\item QA
+			\item QA-System
+		\end{itemize}
+
+	\item QA
+		\begin{itemize}
+			\item Checks the configured mode 
+				\begin{itemize}
+					\item Can only be set at compiletime
+				\end{itemize}
+			\item Relays question or starts webservice, depending on mode
+			\item writes answers to JSON-File if mode==dataset
+		\end{itemize}
+
+	\item QA-System
+		\begin{itemize}
+			\item Takes a question and the language of the question
+			\item Returns answer container
+		\end{itemize}
+
+	\item Answer container
+		\begin{itemize}
+			\item Contains relevant data for the answer
+			\item The answer
+			\item the SPARQL-Query used
+		\end{itemize}
+		
+	
+\end{itemize}
+
 \subsection{Webservice}
+
+\begin{itemize}
+	\item Uses Spring
+	\item listens on /gerbil for HTTP-POST requests
+	\item reads the question and relays it to the QA-System
+	\item returns the result to the sender of the requests as JSON 
+\end{itemize}
 
 \section{Question Preprocessing} (Lukas)
 
@@ -79,6 +127,11 @@ To get a answer a SPARQL-Query has to be build and executed on a endpoint. That 
 \subsection{Example}
 
 \subsection{Superlatives, Comparatives and Temporal Aggregators} (Ralf) )(Lukas)
+
+\begin{itemize}
+	\item predefined enum with comperatives and Superlatives
+	\item used to determine the corresponding DBPedia property and sort order
+\end{itemize}
 
 \subsection{Example}
 
