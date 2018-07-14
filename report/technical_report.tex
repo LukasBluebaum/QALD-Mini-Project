@@ -49,9 +49,9 @@ The World Wide Web is filled with information for everyone to explore. Most info
 
 Most Semantic Web Databases use SPARQL as the language to query the database. That means that in order to search the semantic web the user has to learn a query language, that is not very easy to learn. This is not user friendly and can be improved. \\
 
-The goal of our project is to provide a interface that takes a question formulated in natural language and answers it by querying DBPedia. The interface will be able to be used over the web via HTTP-POST requests. \\
+The goal of our project is to provide a interface that takes a question formulated in natural language and answers it by querying DBPedia. The interface will be able to be used over the web via HTTP-POST requests. We aim for a F-measure of at last 0.1. \\
 
-Our project uses a Template-based approach. That means we have defined templates of SPARQL-Queries that are modified at predefined locations based on the question asked. The project consists of three components: The \emph{Question-Answering (QA) Engine}, the \emph{Question-Processor} and the \emph{SPARQLQueryBuilder}. \\
+Our project uses a Template-based approach. That means we have defined templates of SPARQL-Queries that are modified at predefined locations based on the question asked. The project consists of three components: The \emph{Question-Answering (QA) Engine}, the \emph{Question-Processor} and the \emph{SPARQLQueryBuilder}. We use the Library \emph{qa.annotation} to find entities, propierties and classes, qa.commons to load and store QALD-datasets and GERBIL QA, a wrapper for web communication.   \\
 
 The \emph{QA Engine} is responsible for providing the interface to users. It reads questions from the Webservice or a predefined dataset and passes the question to the Question Processor. Furthermore the QA Engine is responsible for outputting the answer, i.e sending a HTTP-Response to the user. \\
 
