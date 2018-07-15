@@ -6,3 +6,5 @@ log.out
 report/technical_report.synctex.gz
 report/technical_report.log
 report/technical_report.aux
+report/technical_report.fls
+report/technical_report.fdb_latexmk
