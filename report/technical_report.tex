@@ -87,8 +87,6 @@ Option 1 is mainly used for debugging purposes and is not of further interest. T
 The QA-Component consists of multiple subcomponents. One subcomponent is the \emph{QA} class. This class is the main class of the program, the \emph{main} Method is invoked on startup. It is responsible for checking which mode the program should run in. The mode is defined by a flag in the code that has to be set at compile time. It loads the question and releys them to the Question Processor, based on which mode is selected. If the program runs in \emph{Dataset} mode, the QA class is also responsible for writing the results as a JSON-File to the local storage. To load the dataset, we use the \emph{LoaderController} class provided by the research group. \\
 
 The second component is the \emph{QA-System} component. This class' only purpose is it to take a question and return a \emph{Answer Container}. The Answer Container contains the answer of the question and the query used to get the result. The QA-System relays the question to the QuestionProcessor to get the Answer Container. The QA-System is mainly used by the webserver to determine the answer to a given question. \\
-	
-\end{itemize}
 
 \subsection{Webservice}
 
