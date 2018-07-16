@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
+
+\usepackage{enumerate}
 %
 % If you use the hyperref package, please uncomment the following line
 % to display URLs in blue roman font according to Springer's eBook style:
@@ -68,46 +70,23 @@ To get a answer a SPARQL-Query has to be build and executed on a endpoint. That 
 	\label{fig1} 
 \end{figure}
 
-\section{QA System} (Ralf)
+\section{QA System (Ralf)}
 
-\begin{itemize}
+The QA-System component is the component that reads questions from various datasources and relays them to other components, mainly to the \emph{Question Processor}. It is also responsible for outputting the answer to asked questions. \\
+	
+There are three supported input-modes:  
 
-	\item Responsible for fetching questions and relaying them to the Question Processor
-		\begin{itemize}
-			\item Load datasets
-			\item Webservice
-			\item Single compile-time question
-		\end{itemize}
+\begin{enumerate}
+	\item Ask a single question stored in a variable
+	\item Load datasets with multiple questions from a JSON-File 
+	\item Run a queryable webservice 
+\end{enumerate}
 
-	\item Consists of two subcomponents
-		\begin{itemize}
-			\item QA
-			\item QA-System
-		\end{itemize}
+Option 1 is mainly used for debugging purposes and is not of further interest. The second option is used to run practice datasets provided by the research group. Our aim of a F-Score of at least 0.1 refers to these datasets. Option 3 is used to provide a webservice a user can use to get their questions answered. \\
 
-	\item QA
-		\begin{itemize}
-			\item Checks the configured mode 
-				\begin{itemize}
-					\item Can only be set at compiletime
-				\end{itemize}
-			\item Relays question or starts webservice, depending on mode
-			\item writes answers to JSON-File if mode==dataset
-		\end{itemize}
+The QA-Component consists of multiple subcomponents. One subcomponent is the \emph{QA} class. This class is the main class of the program, the \emph{main} Method is invoked on startup. It is responsible for checking which mode the program should run in. The mode is defined by a flag in the code that has to be set at compile time. It loads the question and releys them to the Question Processor, based on which mode is selected. If the program runs in \emph{Dataset} mode, the QA class is also responsible for writing the results as a JSON-File to the local storage. To load the dataset, we use the \emph{LoaderController} class provided by the research group. \\
 
-	\item QA-System
-		\begin{itemize}
-			\item Takes a question and the language of the question
-			\item Returns answer container
-		\end{itemize}
-
-	\item Answer container
-		\begin{itemize}
-			\item Contains relevant data for the answer
-			\item The answer
-			\item the SPARQL-Query used
-		\end{itemize}
-		
+The second component is the \emph{QA-System} component. This class' only purpose is it to take a question and return a \emph{Answer Container}. The Answer Container contains the answer of the question and the query used to get the result. The QA-System relays the question to the QuestionProcessor to get the Answer Container. The QA-System is mainly used by the webserver to determine the answer to a given question. \\
 	
 \end{itemize}
 
@@ -127,11 +106,6 @@ To get a answer a SPARQL-Query has to be build and executed on a endpoint. That 
 \subsection{Example}
 
 \subsection{Superlatives, Comparatives and Temporal Aggregators} (Ralf) )(Lukas)
-
-\begin{itemize}
-	\item predefined enum with comparatives and Superlatives
-	\item used to determine the corresponding DBPedia property and sort order
-\end{itemize}
 
 When the user enters a question like \emph{What is the highest mountain in Germany?}  the SPARQLQueryBuilder builds a query that fetches all mountains in Germany, sorts them descending by height and selects the first entry. This process is applicable for every other superlative and comparative. \\
 
