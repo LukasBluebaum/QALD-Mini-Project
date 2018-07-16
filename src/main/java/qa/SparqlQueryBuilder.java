@@ -3,7 +3,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -52,6 +51,12 @@ public class SparqlQueryBuilder {
 		this.q = q;
 	}
 	
+	/**
+	 * Template for where questions, simple sparql query with entity property ?answer. Only considers properties where the
+	 * range is dbo:Place.
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public Set<String> sparqlWhere() throws UnsupportedEncodingException {
 		if(entityList != null) {
 			if(entityList.size() == 1 ) {
@@ -64,15 +69,18 @@ public class SparqlQueryBuilder {
 			 				System.out.println(property + "\n");
 			 				if(result != null) return result;
 			 			}
-		 		}
-				return simpleSparql("","");
-			} else {
-				
-			}
+		 		}				
+			} 
 		}
-		return null;
+		return simpleSparql("","");
  	}
 	
+	/**
+	 * Templates for what questions. If there is a superlative in the question calls {@link #superlSparql(String)} 
+	 * otherwise {@link #simpleSparql()}
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public Set<String> sparqlWhat() throws UnsupportedEncodingException {
 		String compare = null;
 		Set<String> result = null;
@@ -82,16 +90,21 @@ public class SparqlQueryBuilder {
 		}	
 		if(compare != null && compare.toLowerCase().equals(q.superlative)) {
 				result = superlSparql(compare);
-				if(result != null) return result;		
-		
- 		}
-		
+				if(result != null) return result;				
+ 		}		
 		return simpleSparql("","");
  	}
 	
+	/**
+	 * Templates for questions with superlatives. If there is an entity first tries to find a class of our classes list that has
+	 * a property to the given entity. Then uses this property and class to build the final query, with the superlative.
+	 * If there is no entity, just uses the classes that were found.
+	 * @param superlative
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	private Set<String> superlSparql(String superlative) throws UnsupportedEncodingException {
 		if(entityList != null && entityList.size() > 0 && entityList.get(entityIndex).getUris().size() > 0) {
-			System.out.println("----");
 			String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
 			Set<String> property = null;
 
@@ -122,6 +135,11 @@ public class SparqlQueryBuilder {
 		return null;
 	}
 
+	/**
+	 * Templates for list questions. Checks if there is a superlative otherwise just uses {@link #simpleSparql()}.
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public Set<String> listSparql() throws UnsupportedEncodingException {
 		Set<String> result = null;
 		
@@ -151,12 +169,23 @@ public class SparqlQueryBuilder {
 		return null;
 	}
 	
+	/**
+	 * Template for when questions. Calls {@link #simpleSparql()} and sets the filter for dates.
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public Set<String> sparqlWhen() throws UnsupportedEncodingException {
 		Set<String> result = simpleSparql(""," FILTER ( (datatype(?answer) = xsd:date) || (datatype(?answer) = xsd:gYear))");
  		if(result != null) return result;
  		return lastOptionWhen();
  	}
 	
+	/**
+	 * Templates for who questions. If there is a superlative {@link #superlSparql()} is called. If the question
+	 * contains most or least {@link #determinerWho()} is called. Otherwise {@link #simpleSparql()}.
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public Set<String> sparqlWho() throws UnsupportedEncodingException {
 		Set<String> result = null;
 		String compare = null;		
@@ -169,19 +198,23 @@ public class SparqlQueryBuilder {
 				if(result != null) return result;		
 		
  		}
-		//if(classes.size() >= 1) {
-			if(q.question.contains("most")) {
-				result = determinerWho("DESC");
-			} else if(q.question.contains("least")) {
-				result = determinerWho("ASC");
-			}
-		 else {
+		if(q.question.contains("most")) {
+			result = determinerWho("DESC");
+		} else if(q.question.contains("least")) {
+			result = determinerWho("ASC");
+		} else {
 			result = simpleSparql("?answer a foaf:Person. ","");
 		}
  		
  		return result;
  	}
 	
+	/**
+	 * Template for who questions that contain most or least. Order is set to DESC or ASC.
+	 * @param order DESC or ASC.
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	private Set<String> determinerWho(String order) throws UnsupportedEncodingException {
 		for(String keyword: properties.keySet()) {
  			for(String property : properties.get(keyword)) {
@@ -198,10 +231,18 @@ public class SparqlQueryBuilder {
 		return null;
 	}
 
-	private Set<String> simpleSparql(String begin, String filter) throws UnsupportedEncodingException {
+	public Set<String> simpleSparql(String begin, String filter) throws UnsupportedEncodingException {
 		return simpleSparql(begin, filter, new AnswerContainer());
 	}
 	
+	/**
+	 * Simple sparql query with entity property ?answer.
+	 * @param begin Set another constaint, for example a ?answer rdf:type x relation.
+	 * @param filter Filter for the query.
+	 * @param container
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	private Set<String> simpleSparql(String begin, String filter, AnswerContainer container) throws UnsupportedEncodingException {
 		if(entityList == null || entityList.size() < 1) return null;
 		for(String keyword: properties.keySet()) {
@@ -224,6 +265,14 @@ public class SparqlQueryBuilder {
 		return simpleSparqlBack(begin, filter);
 	}
 	
+	/**
+	 * Simple sparql query with ?answer property entity.
+	 * @param begin Set another constaint, for example a ?answer rdf:type x relation.
+	 * @param filter Filter for the query.
+	 * @param container
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	private Set<String> simpleSparqlBack(String begin, String filter) throws UnsupportedEncodingException {
 		
 		for(String keyword: properties.keySet()) {
@@ -240,6 +289,14 @@ public class SparqlQueryBuilder {
 		return null;
 	}
 	
+	/**
+	 * Templates for ask questions. Checks if there are 1 or 2 entities in the question and picks the 
+	 * template accordingly. Returns false as default if there weren't any results before. 
+	 * @param begin
+	 * @param filter
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public Set<String> simpleASK(String begin, String filter) throws UnsupportedEncodingException {
 		if(entityList == null ) return null;
 		if(entityList.size() == 1) {
@@ -270,6 +327,11 @@ public class SparqlQueryBuilder {
 
 	}
 	
+	/**
+	 * Just picks a random date from the DBpedia site of the entity. This function is called when
+	 * the {@link #sparqlWhen()} could not find an answer.
+	 * @return
+	 */
 	private Set<String> lastOptionWhen()  {
 		if(entityList != null) {
  		String query = "SELECT ?answer WHERE{<" + entityList.get(entityIndex).getUris().get(0) + "> ?property ?answer ." + " FILTER ( datatype(?answer) = xsd:date )} LIMIT 1";		
@@ -278,11 +340,15 @@ public class SparqlQueryBuilder {
 		return null;
  	}
 	
+	/**
+	 * Uses Apache Jena to send the query to DBpedia.
+	 * @param q
+	 * @return
+	 */
 	public Set<String> executeQuery(String q)  {
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		LinkedHashSet<String> result =  new LinkedHashSet<String>();
@@ -319,7 +385,13 @@ public class SparqlQueryBuilder {
 		return result.size() > 0 ? result : null;		
 	}
 	
-
+	/**
+	 * Templates for how question. For how much just calls {@link #simpleSparql()}. Then differentiates between how many,
+	 * if there is a superlative inside the question or if there is one of the other adjectives specified in the Comparison
+	 * class. 
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public Set<String> sparqlHow() throws UnsupportedEncodingException {
 		
 		String[] tokens = q.question.split(" ");
@@ -349,8 +421,6 @@ public class SparqlQueryBuilder {
 			System.out.println(compare);
 			
 			if(compare != null && compare.toLowerCase().equals(q.superlative) && entityList != null && !entityList.isEmpty()) {
-				
-					System.out.println("----");
 					String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
 					Set<String> property = null;
 					
@@ -374,11 +444,11 @@ public class SparqlQueryBuilder {
 			
 	 		} else {
 	 			if(compare != null && entityList != null && !entityList.isEmpty())  {
-	 			String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
-	 			String query = "SELECT ?answer WHERE{  <"+ entity +"> <" + Comparison.valueOf(compare).getURI(0) +"> ?answer . } ";
-	 			Set<String> result = executeQuery(query); 	
-	 			
- 				if(result != null) return result;
+		 			String entity = URLDecoder.decode(entityList.get(entityIndex).getUris().get(0).toString(), "UTF-8");
+		 			String query = "SELECT ?answer WHERE{  <"+ entity +"> <" + Comparison.valueOf(compare).getURI(0) +"> ?answer . } ";
+		 			Set<String> result = executeQuery(query); 	
+		 			
+	 				if(result != null) return result;
 	 			}
 	 		}
 			return null;
@@ -390,36 +460,50 @@ public class SparqlQueryBuilder {
 		return lastUsedQuery;
 	}
 	
+	/**
+	 * Increments the entity index.
+	 */
 	public void incrementIndex() {
 		entityIndex++;
 	}
 	
+	/**
+	 * Resets the entity index to 0.
+	 */
 	public void resetIndex() {
 	   entityIndex = 0;
 	}  
 	
+	/**
+	 * Index of the current entity.
+	 * @return
+	 */
 	public int getEntityIndex() {
 		return entityIndex;
 	}
 	
+	/**
+	 * Ranks the properties and returns the one with the most triples on DBpedia.
+	 * @param pProperty List of matched properties.
+	 * @return The property with the most triples on DBpedia.
+	 */
 	public static String rank(List<String> pProperty) {
 		int max = -1;
 		String bestProperty = "";
-		for(String property : pProperty) {
-		
-		String q = PREFIX + "SELECT (count(*) AS ?number) {?x  <" + property + "> ?y.  }";	
-		QueryExecution qe = QueryExecutionFactory.sparqlService(service, q);
-		ResultSet rs = qe.execSelect();	
-		if(rs.hasNext()) {
-			QuerySolution s = rs.nextSolution();			
-			RDFNode node = s.get("?number");
-			System.out.println(property + " : " + node.asLiteral().getInt());
-			if(node.asLiteral().getInt() > max) {
-				max = node.asLiteral().getInt();
-				bestProperty = property;
-			}
-			
-	}}
+		for(String property : pProperty) {		
+			String q = PREFIX + "SELECT (count(*) AS ?number) {?x  <" + property + "> ?y.  }";	
+			QueryExecution qe = QueryExecutionFactory.sparqlService(service, q);
+			ResultSet rs = qe.execSelect();	
+			if(rs.hasNext()) {
+				QuerySolution solution = rs.nextSolution();			
+				RDFNode node = solution.get("?number");
+				System.out.println(property + " : " + node.asLiteral().getInt());
+				if(node.asLiteral().getInt() > max) {
+					max = node.asLiteral().getInt();
+					bestProperty = property;
+				}			
+			}	
+		}
 		return bestProperty;
 	}	
 }

@@ -1,6 +1,11 @@
 package webservice;
 
-import com.github.jsonldjava.utils.JsonUtils;
+import java.io.IOException;
+import java.util.Map;
+
+import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletResponse;
+
 import org.aksw.qa.commons.datastructure.Question;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -10,14 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import qa.QASystem;
 
-import javax.annotation.PreDestroy;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
+import com.github.jsonldjava.utils.JsonUtils;
+
+import qa.QASystem;
 
 @RestController
 public class GerbilQABenchmarking {

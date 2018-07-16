@@ -21,9 +21,12 @@ import edu.stanford.nlp.util.CoreMap;
 import utils.Question;
 
 public class NLPParser {
-	private static final  StanfordCoreNLP pipeline;
+	private static final  StanfordCoreNLP PIPELINE;
 	
-	private static final List<String> boolQuestion = Arrays.asList("DO","DID","HAS","WAS","HAVE","DOES","WERE", "IS", "ARE", "BE");
+	/**
+	 * Pre specified verbs, that do not help to find properties.
+	 */
+	private static final List<String> VERBS = Arrays.asList("DO","DID","HAS","WAS","HAVE","DOES","WERE", "IS", "ARE", "BE");
 	
 	private String comparative;
 	
@@ -41,12 +44,14 @@ public class NLPParser {
 		
 	static {
 		Properties props = new Properties();
-	    // props.setProperty("ssplit.eolonly","true");
 	    props.setProperty("annotators","tokenize, ssplit, pos, depparse, lemma");
-	    //props.setProperty("annotators", "tokenize, ssplit, pos, lemma");
-	    pipeline = new StanfordCoreNLP(props);
+	    PIPELINE = new StanfordCoreNLP(props);
 	}
 
+	/**
+	 * Sets all keywords for the question nouns, verbs etc. .
+	 * @param question The current question.
+	 */
  	public void annotateQuestion(Question question) {
  		getKeywords(question.question);
  		question.compoundWords = this.compoundWords;
@@ -58,17 +63,17 @@ public class NLPParser {
  		question.subject = this.subject;
  	}
    	
+ 	/**
+ 	 * Retrieves all important keywords including nouns, verbs, adjectives, superlatives and comparatives.
+ 	 * @param question The current question.
+ 	 */
 	public void getKeywords(String question) {
- 		//PrintWriter out = new PrintWriter(System.out);
 
-        String content = question;
-        System.out.println(content);
+        System.out.println(question);
 
-        Annotation annotation = new Annotation(content);
-        pipeline.annotate(annotation);
-
-        //pipeline.prettyPrint(annotation, out);
-        
+        Annotation annotation = new Annotation(question);
+        PIPELINE.annotate(annotation);
+      
         List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
         compoundWords = getCompounds(sentences);
         verbs = removeVerbs(getWords(sentences, "V"));
@@ -108,27 +113,30 @@ public class NLPParser {
         System.out.println("Superlative:  " + superlative + "\n");
  	}
 	
-	private ArrayList<String> getCompounds(List<CoreMap> sentences) {
+	/**
+	 * Retrieves the compound words for the current question, checks the compound and amod dependencies.
+	 * @param question Current question
+	 * @return List of compoun words inside the current question.
+	 */
+	private ArrayList<String> getCompounds(List<CoreMap> question) {
  		ArrayList<String> compoundWords = new ArrayList<String>();
-
-        
-        for (CoreMap sentence : sentences) {
+     
+        for (CoreMap sentence : question) {
             SemanticGraph basicDeps = sentence.get(BasicDependenciesAnnotation.class);
             Collection<TypedDependency> typedDeps = basicDeps.typedDependencies();
          
             System.out.println("typedDeps: "+ typedDeps);
-            Iterator<TypedDependency> t = typedDeps.iterator();
-            while(t.hasNext()) {
-            	TypedDependency s = t.next();
-            	String c = s.reln().toString();
-            	//TODO: check for compounds that are longer than two words
-            	if(c.equals("compound") || c.equals("amod")) {
-            		String dep = s.dep().toString();
-            		String gov = s.gov().toString();
+            Iterator<TypedDependency> dependencyIterator = typedDeps.iterator();
+            while(dependencyIterator.hasNext()) {
+            	TypedDependency dependency = dependencyIterator.next();
+            	String depString = dependency.reln().toString();
+            	if(depString.equals("compound") || depString.equals("amod")) {
+            		String dep = dependency.dep().toString();
+            		String gov = dependency.gov().toString();
             		compoundWords.add(dep.substring(0, dep.lastIndexOf("/")) + " " + gov.substring(0, gov.lastIndexOf("/")));
             	}
-            	if(c.equals("nsubj")) {
-            		String dep = s.dep().toString();
+            	if(depString.equals("nsubj")) {
+            		String dep = dependency.dep().toString();
             		subject = dep.substring(0, dep.lastIndexOf("/"));
             	}
             }
@@ -136,49 +144,39 @@ public class NLPParser {
         return compoundWords;
  	}
 	
-	private ArrayList<String> getWords(List<CoreMap> sentences, String tag) {
+	/**
+	 * Retrieves words from the question, depending on the string tag.
+	 * N for nouns, V for verbs, JJ for adjectives, JJR for comparatives and JJS for superlatives.
+	 * @param question Current question. 
+	 * @param tag N for nouns, V for verbs and JJ for adjectives.
+	 * @return List of the retrieved words. 
+	 */
+	private ArrayList<String> getWords(List<CoreMap> question, String tag) {
  		ArrayList<String> words = new ArrayList<String>();
  		
- 		for (CoreMap sentence : sentences) {
+ 		for (CoreMap sentence : question) {
             List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
-            for(CoreLabel t: tokens) {
-               	if(t.tag().startsWith(tag)){
-            		String word = t.toString();
+            for(CoreLabel token: tokens) {
+               	if(token.tag().startsWith(tag)){
+            		String word = token.toString();
             		words.add(word.substring(0, word.lastIndexOf("-")));
             	}
             }
         }       	
  		return words;
  	}
- 	
- 	private ArrayList<String> removeNouns(ArrayList<String> oldNouns) {
- 		ArrayList<String> nouns = new ArrayList<String>();
- 		
- 		boolean found = false;
- 		for(String noun: oldNouns) {
- 			for(String compound: compoundWords) {
- 				String[] com = compound.split(" ");
- 				for(String c: com) {
- 					if(c.equals(noun)) {
- 						found = true;
- 					}
- 				}
- 			}
- 			if(!found) {
- 				nouns.add(noun);
- 			}
- 			found = false;
- 		}		
- 		return nouns; 		
- 	}
- 	
-
+	
+ 	/**
+ 	 * Removes pre specified verbs in {@link #VERBS}, that do not help to find properties.
+ 	 * @param oldVerbs Found verbs in the question.
+ 	 * @return List of cleaned verbs.
+ 	 */
  	private ArrayList<String> removeVerbs(ArrayList<String> oldVerbs) {
  		ArrayList<String> verbs = new ArrayList<String>();
  		
  		boolean found = false;
  		for(String verb: oldVerbs) {
- 			for(String test: boolQuestion) {
+ 			for(String test: VERBS) {
  				if(verb.toUpperCase().equals(test)) {
  					found = true;
  				}
@@ -191,10 +189,15 @@ public class NLPParser {
  		return verbs; 		
  	}
  	
+ 	/**
+ 	 * Returns the lemmanization of the given word.
+ 	 * @param input A single word.
+ 	 * @return The lemmanization of the given word.
+ 	 */
  	public String getLemma(String input) {
- 		Annotation noun = new Annotation(input);
- 		pipeline.annotate(noun);
- 		List<CoreMap> sentences = noun.get(SentencesAnnotation.class);
+ 		Annotation doc = new Annotation(input);
+ 		PIPELINE.annotate(doc);
+ 		List<CoreMap> sentences = doc.get(SentencesAnnotation.class);
  		if(sentences.size() > 1) return null;
  		CoreMap sentence = sentences.get(0);
  		List<CoreLabel> token = sentence.get(TokensAnnotation.class);

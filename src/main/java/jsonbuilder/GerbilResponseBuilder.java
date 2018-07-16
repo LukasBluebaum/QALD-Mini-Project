@@ -5,14 +5,14 @@ import java.util.Objects;
 import java.util.Vector;
 
 import org.aksw.qa.commons.datastructure.Question;
-import org.aksw.qa.commons.load.json.QaldJson;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.json.simple.JSONObject;
-
 
 public class GerbilResponseBuilder {
+	
+	@SuppressWarnings("unused")
 	private Logger log = LoggerFactory.getLogger(GerbilResponseBuilder.class);
 	private String id;
 	private String answertype;
