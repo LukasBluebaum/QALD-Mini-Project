@@ -75,6 +75,20 @@ To get a answer a SPARQL-Query has to be build and executed on a endpoint. That 
 	\label{fig1} 
 \end{figure}
 
+The Question Answering processing includes multiple steps. After the question have been received, the question will be forwarded to the QuestionProcessor by the QA class. \\
+This class annotates the questions with all additional information that are important to be able to find an answer. 
+The question is sent to DBpedia Spotlight which performs named entity recognition. The found entities are saved in a question object. 
+Following this, we use the Stanford CoreNLP in order to find words that could indicate which DBpedia property we will need to later fill in the templates. \\
+Therefore we pass those keywords to  IndexDBO\_classes provided by the qa.annotation library. \\
+Furthermore, the IndexDBO\_classes maps the nouns of the question to classes if a corresponding class exists in the DBpedia namespace. The IndexDBO class itself performs a fuzzy search on a predefined file that contains a set of DBpedia properties and keywords using the Apache Lucene library. \\
+All gathered information will be stored in the question object. \\
+Then we classify the question based on the question word ( cf. 5 Template overview). \\
+Depending on the classification the SparqlQueryBuilder class, given the question object, runs a method in which a SPARQL template will be filled in with the found entities, classes and properties. \\
+The method itself does some selection of which SPARQL template will be used out of some prepared templates - corresponding to the first classification - based on keywords ( e.g. many or comparatives) and the number of entities and classes. \\
+Then we query the DBpedia SPARQL endpoint using apache Jena with all SPARQL queries that seem meaningful given the set of possible properties.
+The result is returned and converted to an answer JSON object by the provided gerbil wrapper classes. \\
+
+
 \section{QA System (Ralf)}
 
 The QA-System component is the component that reads questions from various datasources and relays them to other components, mainly to the \emph{Question Processor}. It is also responsible for outputting the answer to asked questions. \\

@@ -496,8 +496,7 @@ public class SparqlQueryBuilder {
 			ResultSet rs = qe.execSelect();	
 			if(rs.hasNext()) {
 				QuerySolution solution = rs.nextSolution();			
-				RDFNode node = solution.get("?number");
-				System.out.println(property + " : " + node.asLiteral().getInt());
+				RDFNode node = solution.get("?number");			
 				if(node.asLiteral().getInt() > max) {
 					max = node.asLiteral().getInt();
 					bestProperty = property;

@@ -31,11 +31,11 @@ public class QA {
 			 LoadDataset
 		 }
 	
-	 private static final DebugMode DEBUGMODE = DebugMode.DebugOffline;
+	 private static final DebugMode DEBUGMODE = DebugMode.LoadDataset;
 	 
-	 private static final Dataset DATASET = Dataset.QALD8_Train_Multilingual;
+	 private static final Dataset DATASET = Dataset.QALD8_Test_Multilingual;
 	
-	 private static final String QUESTION = "Who was the doctoral supervisor of Albert Einstein?";
+	 private static final String QUESTION = "What is the birth name of Adele?";
 
 	 static List<GerbilResponseBuilder> response = new ArrayList<GerbilResponseBuilder>();
 	 private static QASystem system = new QASystemImpl();
@@ -78,7 +78,7 @@ public class QA {
 			}
 
 			try {
-				OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("solution2.json"), StandardCharsets.UTF_8);
+				OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("solutionTest.json"), StandardCharsets.UTF_8);
 				writer.write(json);
 				writer.close();
 			} catch (IOException e) {

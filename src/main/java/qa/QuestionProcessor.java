@@ -101,31 +101,84 @@ public class QuestionProcessor {
 		q.entityList = (ArrayList<Entity>) spotlight.getEntities(question).get(LANGUAGE_TAG);
 	}
 	
+	private boolean containsProperty(Map<String, List<String>> properties ,String p) {
+		for(List<String> c :properties.values()) {
+			if(c.contains(p)) {
+				return true;
+			}
+		}
+	  return false;
+	}
+	
+	
 	/**
 	 * Matches the found keywords to properties using the IndexDBO classes from the qa.annotations library.
+	 * The order is decided by how likely the given property is with the given keywords.
 	 */
 	private void findProperties() {
 		Map<String, List<String>> properties = new LinkedHashMap<>();
-		
+		String likelyProperty = null;
  		IndexDBO_properties index = new IndexDBO_properties();
  		for(String verb: q.verbs) {
+ 			List<String> indexSearch = index.search(verb);
+ 			for(String property: indexSearch ){ 			
+ 				if(containsProperty(properties,property))
+ 				{
+ 					 likelyProperty = property;
+ 				}
+ 			
+ 			}
+ 			
  			properties.put(verb, index.search(verb));
  		}
  		
  		for(String adjective: q.adjectives) {
+ 			
+ 			List<String> indexSearch = index.search(adjective);
+ 			for(String property: indexSearch ){ 			
+ 				if(containsProperty(properties,property))
+ 				{
+ 					 likelyProperty = property;
+ 				}
+ 			}
  			properties.put(adjective, index.search(adjective));
  		}
  		 
  		for(String noun: q.nouns) {
- 			/*if(!noun.equals(q.subject))*/ properties.put(noun, index.search(noun));
+ 			/*if(!noun.equals(q.subject))*/ 
+ 			
+ 			List<String> indexSearch = index.search(noun);
+ 			for(String property: indexSearch ){ 			
+				if(containsProperty(properties,property))
+				{
+				 likelyProperty = property;
+				}
+			}
+ 			
+ 			properties.put(noun, index.search(noun));
  		}
  		
- 		for(String compound: q.compoundWords) {
- 			String[] com = compound.split(" ");
- 			if(!com[0].equals(q.subject)) properties.put(com[0], index.search(com[0]));
- 			if(!com[1].equals(q.subject)) properties.put(com[1], index.search(com[1]));
- 		}
- 		
+// 		for(String compound: q.compoundWords) {
+// 			String[] com = compound.split(" ");
+// 			List<String> indexSearch = index.search(com[0]);
+// 			for(String property: indexSearch ){ 			
+// 				if(containsProperty(properties,property))
+// 				{
+// 					 likelyProperty = property;
+// 				}
+// 			}
+// 				
+// 			indexSearch = index.search(com[1]);
+// 	 		for(String property: indexSearch ){ 			
+// 	 			if(containsProperty(properties,property))
+// 	 			 {
+// 	 				  likelyProperty = property;
+// 	 			 }	
+// 	 		}
+// 			if(!com[0].equals(q.subject)) properties.put(com[0], index.search(com[0]));
+// 			if(!com[1].equals(q.subject)) properties.put(com[1], index.search(com[1]));
+// 		}
+// 		
  		
  	
  		for(String keyword: properties.keySet()) {
@@ -135,9 +188,17 @@ public class QuestionProcessor {
 	            properties.get(keyword).add(0, s);		
  			}
  		}
- 		System.out.println("Properties:" + properties);
+ //		System.out.println("Properties:" + properties);
+ 		if(likelyProperty != null)
+ 		{
+ 			List<String> firstProperty = properties.get(properties.keySet().toArray()[0]);
+ 			firstProperty.add(0, likelyProperty);
+ 			System.out.println("likely:" + likelyProperty);
+ 			properties.put((String) properties.keySet().toArray()[0], firstProperty);
+ 		}
  		q.properties = properties;
  	}
+	
 	
 	/**
 	 * Matches the found nouns to classes using the IndexDBO_classes from the qa.annotations library.
