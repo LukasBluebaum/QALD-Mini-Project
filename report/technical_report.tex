@@ -5,6 +5,7 @@
 \documentclass[runningheads]{llncs}
 %
 \usepackage{graphicx}
+\usepackage{tabularx}
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
 
@@ -21,7 +22,8 @@
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
-%
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
 \author{Lukas Bl{\"u}baum \and
 Nick D{\"u}sterhus \and
 Ralf Keller}
@@ -31,7 +33,10 @@ Ralf Keller}
 % If there are more than two authors, 'et al.' is used.
 %
 \institute{University of Paderborn ,Warburger Str. 100, 33098 Paderborn, Germany
-\email{\{lukasbl,nduester,rkeller\}@uni-paderborn.de}}
+\email{\{lukasbl,nduester,rkeller\}@uni-paderborn.de}
+\url{https://github.com/LukasBluebaum/QALD-Mini-Project}}
+
+
 
 %
 \maketitle              % typeset the header of the contribution
@@ -40,7 +45,7 @@ Ralf Keller}
 The abstract should briefly summarize the contents of the paper in
 150--250 words.
 
-\keywords{First keyword  \and Second keyword \and Another keyword.}
+\keywords{QALD  \and Question Answering \and Spotlight \and SPARQL.}
 \end{abstract}
 %
 %
@@ -62,7 +67,7 @@ Relevant entities contained in the question have to be identified and the questi
 To get a answer a SPARQL-Query has to be build and executed on a endpoint. That is the responsibility of the \emph{SPARQLQueryBuilder}. This component uses the processed information provided by the Question Processor, builds a SPARQL-Query by using predefined templates and executes the query on an endpoint provided by DBPedia. 
 
 \pagebreak
-\section{Simplified Procedure} (Nick)
+\section{Simplified Procedure (Nick)} 
 \begin{figure}
 	\includegraphics[width=\textwidth]{Architecture.PNG}
 	
@@ -97,105 +102,119 @@ The second component is the \emph{QA-System} component. This class' only purpose
 	\item returns the result to the sender of the requests as JSON 
 \end{itemize}
 
-\section{Question Preprocessing} (Lukas)
+\section{Question Preprocessing (Lukas)} 
+Before we can start to build a SPARQL-Query we need to preprocess the questions. First we classify them depending on their starting word, because by doing so we can already get many information about the expected answer. So for example if we have a "When" question we already know that the answer should be of datatype date or year. \\
 
-\section{Template Overview} (Lukas)
+Then we use the Stanford CoreNLP \cite{stanford} to find keywords inside the questions. Here we extract nouns, verbs and adjectives and later map them to classes and properties from the DBpedia ontology. We also extract superlatives and comparatives to further differentiate the used templates. For the Named Entity Recognition we request the Spotlight \cite{spotlight} demo through the qa.annotation library. Then we remove entities that can also be mapped to classes, because somtimes Spotlight detects something like "Mountain" also as entity (resource) and we normally want to use that as a class and not an entity. \\
+
+Finally we apply the IndexDBO classes of the qa.annotation library to the extracted nouns,verbs and adjectives to map them to classes and properties from the DBpedia ontology. Here normally verbs, adjectives will be mapped
+to properties and nouns to classes. In the next step we will then rank the properties, so that we can test the properties with the most hits, triples on DBpedia with that property, first. We also extented the property list in qa.annotations and just added all DBpedia ontology properties.
+
+\section{Template Overview (Lukas)}
+Below in table 1 you can see a quick overview of some of the question types we differentiated. Afterwards we also looked at the number of entites and classes and if there is a superlative or comparative to choose the template accordingly. Finally we requested the DBpedia endpoint using Apache Jena.
+
+\begin{table}
+	\caption{A quick overview for some of the question types.}\label{tab1}
+	\begin{center}
+		\begin{tabularx}{\textwidth}{@{}|Y|Y|@{}}
+			\hline
+			\textbf{Question type} &  \textbf{Expected answer} \\
+			\hline
+			boolean (Do, Did, Has, Was, Does ... ) &  true or false \\
+			\hline
+			Where &  Place \\
+			\hline
+			When &  datatypes date or year \\
+			\hline
+			Who &  Person \\
+			\hline
+			List, Name, Show ... &  list of resources \\
+			\hline
+		\end{tabularx}
+	\end{center}
+\end{table}
 
 \subsection{Example}
+An example for the most basic query consting of $<$entity$>$ $<$property$>$ ?answer.
+\begin{example}
+	"Who was the doctoral supervisor of Albert Einstein?"\end{example}
+First we see that it is a "Who" question so we already know that the answer should be a Person.
+Spotlight will find one entity: \textit{dbr:Albert Einstein}. Then \textit{doctoral supervisor} will be mapped to \textit{dbo:doctoralAdvisor}.
 
-\subsection{Superlatives, Comparatives and Temporal Aggregators} (Ralf) )(Lukas)
+\begin{example}
+	SELECT DISTINCT ?answer WHERE \{ \\
+	\tab[1.8cm] ?answer a foaf:Person. \\
+	\tab[1.8cm] $<$http://dbpedia.org/resource/Albert Einstein$>$ \\
+	\tab[1.8cm] $<$http://dbpedia.org/ontology/doctoralAdvisor$>$ ?answer . \} \end{example}
+
+
+
+\subsection{Superlatives, Comparatives (Ralf) )(Lukas)} 
 
 When the user enters a question like \emph{What is the highest mountain in Germany?}  the SPARQLQueryBuilder builds a query that fetches all mountains in Germany, sorts them descending by height and selects the first entry. This process is applicable for every other superlative and comparative. \\
 
 The QueryBuilder has to know which superlatives and comparatives there are, which attributes they compare and if the result has to be descending or ascending. There is no online resource which provides this information, so we created an Enum called \emph{Comparisons} that contains a selection of superlatives and comparatives in connection with the corresponding sort order (ascending for lowest, smallest, descending for highest, longest) and a reference to appropriate DBPedia attributes. \\
 
-The \emph{SPARQLQueryBuilder} iterates over all comparatives and superlatives and checks if the question contains any of them. If the Builder detects a comparative or superlative it selects the appropriate predefined Query-Template and modifies it according to the data saved in the enum. By using this approach we have a quick and uncomplicated way to handle comparatives and superlatives. The disadvantage of this approach is that we can only handle comparatives or superlatives that we defined on attributes we defined. If the user wants to compare an attribute we have not thought about this approach will not yield any result.
+The \emph{SPARQLQueryBuilder} iterates over all comparatives and superlatives and checks if the question contains any of them. If the Builder detects a comparative or superlative it selects the appropriate predefined Query-Template and modifies it according to the data saved in the enum. By using this approach we have a quick and uncomplicated way to handle comparatives and superlatives. The disadvantage of this approach is that we can only handle comparatives or superlatives that we defined on attributes we defined. If the user wants to compare an attribute we have not thought about this approach will not yield any result. See the table 2 below for a few example entries from the Comparison enum.
 
-
+\begin{table}
+	\caption{A few example entries from the Comparison enum.}\label{tab1}
+	\begin{center}
+		\begin{tabularx}{\textwidth}{@{}|Y|Y|Y|@{}}
+			\hline
+			\textbf{Word} &  \textbf{Uri} &  \textbf{Order}\\
+			\hline
+			largest &  dbo:areaTotal & DESC \\
+			\hline
+			tall &  dbo:height & - \\
+			\hline
+			taller &  dbo:height & DESC\\
+			\hline
+			tallest &  dbo:height & DESC\\
+			\hline
+			high &  dbo:elevation & - \\
+			\hline
+			higher &  dbo:elevation & DESC\\
+			\hline
+			highest &  dbo:elevation & DESC\\
+			\hline
+		\end{tabularx}
+	\end{center}
+\end{table}
 
 \subsection{Example}
+\begin{example}
+	"What is the largest country in the world?"\end{example}
+Here Spotlight will find no entity. We detect the class \textit{Country} and from our Comparison enum the word 
+largest (dbo:areaTotal) with the order "DESC". 
 
-\section{Benchmarking and Evaluation} (Nick)
 
-\section{Summary} (Nick)
+\begin{example}
+	SELECT DISTINCT ?answer WHERE \{ \\
+	\tab[1.8cm] ?answer rdf:type $<$http://dbpedia.org/ontology/Country$>$. \\
+	\tab[1.8cm] ?answer $<$http://dbpedia.org/ontology/areaTotal$>$ ?area . \} \\
+	\tab[1.8cm]	ORDER BY DESC(?area) LIMIT 1 OFFSET 0\end{example}
+
+\section{Benchmarking and Evaluation (Nick)} 
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{QALD-8-Test.PNG}
-	
-	\caption{Gerbil experiment for the QALD8-Test set, with an F-measure of 0.33.}
-	 \label{fig2} 
+	http://gerbil-qa.aksw.org/gerbil/experiment?id=201807160000
+	\caption{Gerbil experiment for the QALD8-Test set, with a F-measure of 0.49.}
+	\label{fig2} 
 \end{figure}
-
-\subsection{A Subsection Sample}
-Please note that the first paragraph of a section or subsection is
-not indented. The first paragraph that follows a table, figure,
-equation etc. does not need an indent, either.
-
-Subsequent paragraphs, however, are indented.
-
-\subsubsection{Sample Heading (Third Level)} Only two levels of
-headings should be numbered. Lower level headings remain unnumbered;
-they are formatted as run-in headings.
-
-\paragraph{Sample Heading (Fourth Level)}
-The contribution should contain no more than four levels of
-headings. Table~\ref{tab1} gives a summary of all heading levels.
-
-\begin{table}
-\caption{Table captions should be placed above the
-tables.}\label{tab1}
-\begin{tabular}{|l|l|l|}
-\hline
-Heading level &  Example & Font size and style\\
-\hline
-Title (centered) &  {\Large\bfseries Lecture Notes} & 14 point, bold\\
-1st-level heading &  {\large\bfseries 1 Introduction} & 12 point, bold\\
-2nd-level heading & {\bfseries 2.1 Printing Area} & 10 point, bold\\
-3rd-level heading & {\bfseries Run-in Heading in Bold.} Text follows & 10 point, bold\\
-4th-level heading & {\itshape Lowest Level Heading.} Text follows & 10 point, italic\\
-\hline
-\end{tabular}
-\end{table}
-
-
-\noindent Displayed equations are centered and set on a separate
-line.
-\begin{equation}
-x + y = z
-\end{equation}
-Please try to avoid rasterized images for line-art diagrams and
-schemas. Whenever possible, use vector graphics instead (see
-Fig.~\ref{fig3}).
 
 \begin{figure}
-\includegraphics[width=\textwidth]{fig1.eps}
-\caption{A figure caption is always placed below the illustration.
-Please note that short captions are centered, while long ones are
-justified by the macro package automatically.} \label{fig1}
+	\includegraphics[width=\textwidth]{QALD-8-Train.PNG}
+	
+	http://gerbil-qa.aksw.org/gerbil/experiment?id=201807170000
+	\caption{Gerbil experiment for the QALD8-Train set, with a F-measure of 0.43.}
+	\label{fig3} 
 \end{figure}
 
-\begin{theorem}
-This is a sample theorem. The run-in heading is set in bold, while
-the following text appears in italics. Definitions, lemmas,
-propositions, and corollaries are styled the same way.
-\end{theorem}
-%
-% the environments 'definition', 'lemma', 'proposition', 'corollary',
-% 'remark', and 'example' are defined in the LLNCS documentclass as well.
-%
-\begin{proof}
-Proofs, examples, and remarks have the initial word in italics,
-while the following text appears in normal font.
-\end{proof}
-For citations of references, we prefer the use of square brackets
-and consecutive numbers. Citations using labels or the author/year
-convention are also acceptable. The following bibliography provides
-a sample reference list with entries for journal
-articles~\cite{ref_article1}, an LNCS chapter~\cite{ref_lncs1}, a
-book~\cite{ref_book1}, proceedings without editors~\cite{ref_proc1},
-and a homepage~\cite{ref_url1}. Multiple citations are grouped
-\cite{ref_article1,ref_lncs1,ref_book1},
-\cite{ref_article1,ref_book1,ref_proc1,ref_url1}.
+\section{Summary (Nick)} 
+
+
 %
 % ---- Bibliography ----
 %
@@ -205,25 +224,6 @@ and a homepage~\cite{ref_url1}. Multiple citations are grouped
 % \bibliographystyle{splncs04}
 % \bibliography{mybibliography}
 %
-\begin{thebibliography}{8}
-\bibitem{ref_article1}
-Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
-
-\bibitem{ref_lncs1}
-Author, F., Author, S.: Title of a proceedings paper. In: Editor,
-F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
-Springer, Heidelberg (2016). \doi{10.10007/1234567890}
-
-\bibitem{ref_book1}
-Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
-Location (1999)
-
-\bibitem{ref_proc1}
-Author, A.-B.: Contribution title. In: 9th International Proceedings
-on Proceedings, pp. 1--2. Publisher, Location (2010)
-
-\bibitem{ref_url1}
-LNCS Homepage, \url{http://www.springer.com/lncs}. Last accessed 4
-Oct 2017
-\end{thebibliography}
+\bibliography{references}
+\bibliographystyle{splncs04}
 \end{document}

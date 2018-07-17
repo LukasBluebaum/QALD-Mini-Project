@@ -31,11 +31,11 @@ public class QA {
 			 LoadDataset
 		 }
 	
-	 private static final DebugMode DEBUGMODE = DebugMode.LoadDataset;
+	 private static final DebugMode DEBUGMODE = DebugMode.DebugOffline;
 	 
-	 private static final Dataset DATASET = Dataset.QALD8_Test_Multilingual;
+	 private static final Dataset DATASET = Dataset.QALD8_Train_Multilingual;
 	
-	 private static final String QUESTION = "When was Einstein born?";
+	 private static final String QUESTION = "Who was the doctoral supervisor of Albert Einstein?";
 
 	 static List<GerbilResponseBuilder> response = new ArrayList<GerbilResponseBuilder>();
 	 private static QASystem system = new QASystemImpl();
