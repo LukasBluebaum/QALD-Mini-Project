@@ -196,22 +196,24 @@ The \emph{SPARQLQueryBuilder} iterates over all comparatives and superlatives an
 	\end{center}
 \end{table}
 
+
 \subsection{Example}
 \begin{example}
 	"What is the largest country in the world?"\end{example}
 Here Spotlight will find no entity. We detect the class \textit{Country} and from our Comparison enum the word 
 largest (dbo:areaTotal) with the order "DESC". 
 
-
+\raggedbottom
 \begin{example}
 	SELECT DISTINCT ?answer WHERE \{ \\
 	\tab[1.8cm] ?answer rdf:type $<$http://dbpedia.org/ontology/Country$>$. \\
 	\tab[1.8cm] ?answer $<$http://dbpedia.org/ontology/areaTotal$>$ ?area . \} \\
 	\tab[1.8cm]	ORDER BY DESC(?area) LIMIT 1 OFFSET 0\end{example}
 
+\pagebreak
 \section{Benchmarking and Evaluation (Nick)} 
 
-The GERBIL platform computes an F-score over our answers. We evalutated the QALD\_Train as well as the QALD\_Test set.
+The GERBIL platform computes an F-score over our answers. We evalutated the QALD8\_Train as well as the QALD8\_Test set.
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{QALD-8-Test.PNG}
@@ -229,11 +231,15 @@ The GERBIL platform computes an F-score over our answers. We evalutated the QALD
 	\label{fig3} 
 \end{figure}
 
+\pagebreak
 \section{Discussion (Nick)} 
-Our system reaches an F-score of about 0,527. This is partly due to the number of properties to which the words of the question can get matched to otherwise, some question that could be answered with a simple SPARQL query could not be answered. \\
+Our system reaches an F-score of about 0.527. This is partly due to the number of properties to which the words of the question can get matched to otherwise, some question that could be answered with a simple SPARQL query could not be answered. \\
+
 Further factors include the ordering of those properties and a larger number of different templates. 
 The QALD8 set has a focus on questions containing comparative, superlative as well as temporal aggregators, so our templates are mostly designed to answer those kinds of questions. \\
-Presumably, our system will have a slightly worse result on other questions sets. Our system provides the foundations to answer a multitude of questions, so it could easily be extended to further improve the result.\\
+
+Presumably, our system will have a slightly worse result on other questions sets. For example the selection of templates for boolean and list questions could be improved.  Our system provides the foundations to answer a multitude of questions, so it could easily be extended to further improve the result.\\
+
 Our system is not able to understand the semantics of the questions. \\
 Nevertheless identifying keywords to map those to classes and properties as well as keywords that enable us to classify the questions leads to an appropriate selection of a SPARQL-Query.
 
