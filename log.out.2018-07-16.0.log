@@ -1,0 +1,921 @@
+16.07.18 13:49:06 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator tokenize>
+16.07.18 13:49:06 INFO  [lp.pipeline.TokenizerAnnotator] 88    - <No tokenizer type provided. Defaulting to PTBTokenizer.>
+16.07.18 13:49:06 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator ssplit>
+16.07.18 13:49:06 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator pos>
+16.07.18 13:49:07 INFO  [nlp.tagger.maxent.MaxentTagger] 88    - <Loading POS tagger from edu/stanford/nlp/models/pos-tagger/english-left3words/english-left3words-distsim.tagger ... done [0.8 sec].>
+16.07.18 13:49:07 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator depparse>
+16.07.18 13:49:07 INFO  [.parser.nndep.DependencyParser] 88    - <Loading depparse model: edu/stanford/nlp/models/parser/nndep/english_UD.gz ... >
+16.07.18 13:49:19 INFO  [rd.nlp.parser.nndep.Classifier] 88    - <PreComputed 99996, Elapsed Time: 10.764 (s)>
+16.07.18 13:49:19 INFO  [.parser.nndep.DependencyParser] 88    - <Initializing dependency parser ... done [11.7 sec].>
+16.07.18 13:49:19 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator lemma>
+16.07.18 13:49:24 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/musicComposer> <http://dbpedia.org/resource/Elton_John> . }}>
+16.07.18 13:49:25 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/musicComposer> <http://dbpedia.org/resource/Elton_John> . }}
+ Question: [{string=List all the musicals with music by Elton John., language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/The_Muse_(1999_film)"}},{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/Gnomeo_&_Juliet"}},{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/Elton_John:_Tantrums_&_Tiaras"}},{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/Billy_Elliot_the_Musical_Live"}},{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/Friends_(1971_film)"}}]}}]]>
+16.07.18 13:49:29 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{  <http://dbpedia.org/resource/Colombo> <http://dbpedia.org/ontology/elevation> ?answer . } }>
+16.07.18 13:49:29 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{  <http://dbpedia.org/resource/Colombo> <http://dbpedia.org/ontology/elevation> ?answer . } }
+ Question: [{string=How high is the lighthouse in Colombo?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"1.0"}}]}}]]>
+16.07.18 13:49:34 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{?answer a foaf:Person. <http://dbpedia.org/resource/Abraham_Lincoln> <http://dbpedia.org/ontology/spouse> ?answer . }}>
+16.07.18 13:49:34 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{?answer a foaf:Person. <http://dbpedia.org/resource/Abraham_Lincoln> <http://dbpedia.org/ontology/spouse> ?answer . }}
+ Question: [{string=Who was the wife of U.S. president Lincoln?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Mary_Todd_Lincoln"}}]}}]]>
+16.07.18 14:05:37 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator tokenize>
+16.07.18 14:05:37 INFO  [lp.pipeline.TokenizerAnnotator] 88    - <No tokenizer type provided. Defaulting to PTBTokenizer.>
+16.07.18 14:05:37 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator ssplit>
+16.07.18 14:05:37 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator pos>
+16.07.18 14:05:37 INFO  [nlp.tagger.maxent.MaxentTagger] 88    - <Loading POS tagger from edu/stanford/nlp/models/pos-tagger/english-left3words/english-left3words-distsim.tagger ... done [0.7 sec].>
+16.07.18 14:05:37 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator depparse>
+16.07.18 14:05:38 INFO  [.parser.nndep.DependencyParser] 88    - <Loading depparse model: edu/stanford/nlp/models/parser/nndep/english_UD.gz ... >
+16.07.18 14:05:48 INFO  [rd.nlp.parser.nndep.Classifier] 88    - <PreComputed 99996, Elapsed Time: 9.928 (s)>
+16.07.18 14:05:48 INFO  [.parser.nndep.DependencyParser] 88    - <Initializing dependency parser ... done [10.8 sec].>
+16.07.18 14:05:48 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator lemma>
+16.07.18 14:18:13 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator tokenize>
+16.07.18 14:18:13 INFO  [lp.pipeline.TokenizerAnnotator] 88    - <No tokenizer type provided. Defaulting to PTBTokenizer.>
+16.07.18 14:18:13 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator ssplit>
+16.07.18 14:18:13 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator pos>
+16.07.18 14:18:13 INFO  [nlp.tagger.maxent.MaxentTagger] 88    - <Loading POS tagger from edu/stanford/nlp/models/pos-tagger/english-left3words/english-left3words-distsim.tagger ... done [0.7 sec].>
+16.07.18 14:18:13 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator depparse>
+16.07.18 14:18:13 INFO  [.parser.nndep.DependencyParser] 88    - <Loading depparse model: edu/stanford/nlp/models/parser/nndep/english_UD.gz ... >
+16.07.18 14:18:24 INFO  [rd.nlp.parser.nndep.Classifier] 88    - <PreComputed 99996, Elapsed Time: 10.009 (s)>
+16.07.18 14:18:24 INFO  [.parser.nndep.DependencyParser] 88    - <Initializing dependency parser ... done [10.8 sec].>
+16.07.18 14:18:24 INFO  [d.nlp.pipeline.StanfordCoreNLP] 88    - <Adding annotator lemma>
+16.07.18 14:18:32 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Angela_Merkel> <http://dbpedia.org/ontology/almaMater> ?answer . }}>
+16.07.18 14:18:32 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Angela_Merkel> <http://dbpedia.org/ontology/almaMater> ?answer . }}
+ Question: [{string=What is the alma mater of the chancellor of Germany Angela Merkel?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Leipzig_University"}}]}}]]>
+16.07.18 14:18:44 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{  <http://dbpedia.org/resource/United_Kingdom> <http://dbpedia.org/ontology/areaTotal> ?answer . } }>
+16.07.18 14:18:44 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{  <http://dbpedia.org/resource/United_Kingdom> <http://dbpedia.org/ontology/areaTotal> ?answer . } }
+ Question: [{string=How large is the area of UK?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"2.42495e+11"}}]}}]]>
+16.07.18 14:18:48 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:18:48 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=null}
+ Question: [{string=Who is the author of the interpretation of dreams?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:19:02 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Adele> <http://dbpedia.org/ontology/birthDate> ?answer . }}>
+16.07.18 14:19:02 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Adele> <http://dbpedia.org/ontology/birthDate> ?answer . }}
+ Question: [{string=What is the birth name of Adele?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"1988-05-05"}}]}}]]>
+16.07.18 14:19:16 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/property/brands> <http://dbpedia.org/resource/Germany> . }}>
+16.07.18 14:19:16 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/property/brands> <http://dbpedia.org/resource/Germany> . }}
+ Question: [{string=What are the top selling luxury vehicle brands in Germany?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:19:21 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT (COUNT(DISTINCT ?a) AS ?answer) WHERE{<http://dbpedia.org/resource/Bertrand_Russell> <http://dbpedia.org/property/awards> ?a . } }>
+16.07.18 14:19:21 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT (COUNT(DISTINCT ?a) AS ?answer) WHERE{<http://dbpedia.org/resource/Bertrand_Russell> <http://dbpedia.org/property/awards> ?a . } }
+ Question: [{string=how many awards has Bertrand Russell?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"5"}}]}}]]>
+16.07.18 14:19:24 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:19:24 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=null}
+ Question: [{string=Who is daniel jurafsky?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:20:01 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Association_football> ?property ?answer . FILTER ( datatype(?answer) = xsd:date )} LIMIT 1}>
+16.07.18 14:20:01 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Association_football> ?property ?answer . FILTER ( datatype(?answer) = xsd:date )} LIMIT 1}
+ Question: [{string=When will start the final match of the football world cup 2018?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:20:05 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:20:05 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=null}
+ Question: [{string=What is the difference between correlation and dependence?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:20:10 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Düsseldorf_Airport> <http://dbpedia.org/ontology/elevation> ?answer . }}>
+16.07.18 14:20:10 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Düsseldorf_Airport> <http://dbpedia.org/ontology/elevation> ?answer . }}
+ Question: [{string=how much is the elevation of Düsseldorf Airport ?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"44.8"}}]}}]]>
+16.07.18 14:20:22 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/European_Union> <http://dbpedia.org/ontology/populationTotal> ?answer . }}>
+16.07.18 14:20:22 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/European_Union> <http://dbpedia.org/ontology/populationTotal> ?answer . }}
+ Question: [{string=how much is the total population of  european union?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"510056011"}}]}}]]>
+16.07.18 14:20:43 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:20:43 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=null}
+ Question: [{string=when was the founding date of french fifth republic?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:20:47 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/property/founders> <http://dbpedia.org/resource/BlaBlaCar> . }}>
+16.07.18 14:20:47 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/property/founders> <http://dbpedia.org/resource/BlaBlaCar> . }}
+ Question: [{string=Who are the founders of  BlaBlaCar?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:20:51 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:20:51 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=null}
+ Question: [{string=Who are the founding fathers of united states?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:20:54 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:20:54 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=null}
+ Question: [{string=how many foreigners speak German?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:20:58 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT DISTINCT ?answer WHERE{<http://dbpedia.org/ontology/birthPlace> rdfs:range dbo:Place .<http://dbpedia.org/resource/Johann_Wolfgang_von_Goethe> <http://dbpedia.org/ontology/birthPlace> ?answer . }}>
+16.07.18 14:20:58 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT DISTINCT ?answer WHERE{<http://dbpedia.org/ontology/birthPlace> rdfs:range dbo:Place .<http://dbpedia.org/resource/Johann_Wolfgang_von_Goethe> <http://dbpedia.org/ontology/birthPlace> ?answer . }}
+ Question: [{string=Where is the birthplace of Goethe?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Frankfurt"}},{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Holy_Roman_Empire"}},{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Frankfurt-am-Main"}}]}}]]>
+16.07.18 14:21:04 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Carolina_Reaper> <http://dbpedia.org/ontology/origin> ?answer . }}>
+16.07.18 14:21:04 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Carolina_Reaper> <http://dbpedia.org/ontology/origin> ?answer . }}
+ Question: [{string=Where is the origin of Carolina reaper?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Fort_Mill,_South_Carolina"}}]}}]]>
+16.07.18 14:21:13 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Mexico_City> <http://dbpedia.org/ontology/populationTotal> ?answer . }}>
+16.07.18 14:21:13 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Mexico_City> <http://dbpedia.org/ontology/populationTotal> ?answer . }}
+ Question: [{string=How much is the population of mexico city ?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"8918653"}}]}}]]>
+16.07.18 14:21:23 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Baghdad> <http://dbpedia.org/ontology/leaderName> ?answer . }}>
+16.07.18 14:21:23 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Baghdad> <http://dbpedia.org/ontology/leaderName> ?answer . }}
+ Question: [{string=what is the nick name of Baghdad?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Zekra_Alwach"}}]}}]]>
+16.07.18 14:21:27 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:21:27 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=null}
+ Question: [{string=Who is the novelist of the work a song of ice and fire?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:21:38 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Brazil> <http://dbpedia.org/ontology/percentageOfAreaWater> ?answer . }}>
+16.07.18 14:21:38 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Brazil> <http://dbpedia.org/ontology/percentageOfAreaWater> ?answer . }}
+ Question: [{string=What is the percentage of area water in Brazil?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"0.65"}}]}}]]>
+16.07.18 14:21:43 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Iraq> <http://dbpedia.org/ontology/populationTotal> ?answer . }}>
+16.07.18 14:21:43 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Iraq> <http://dbpedia.org/ontology/populationTotal> ?answer . }}
+ Question: [{string=how much is the population  Iraq?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"37056169"}}]}}]]>
+16.07.18 14:21:47 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:21:47 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=null}
+ Question: [{string=What is the Sicilian pizza?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:21:51 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Cairo> <http://dbpedia.org/ontology/populationTotal> ?answer . }}>
+16.07.18 14:21:51 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Cairo> <http://dbpedia.org/ontology/populationTotal> ?answer . }}
+ Question: [{string=What is the population of Cairo?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"10230350"}}]}}]]>
+16.07.18 14:22:20 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/rankInFinalMedalCount> <http://dbpedia.org/resource/Nazi_Germany> . }}>
+16.07.18 14:22:20 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/rankInFinalMedalCount> <http://dbpedia.org/resource/Nazi_Germany> . }}
+ Question: [{string=how much is the population densty rank of germany?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:22:25 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/relation> <http://dbpedia.org/resource/Web_Ontology_Language> . }}>
+16.07.18 14:22:25 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/relation> <http://dbpedia.org/resource/Web_Ontology_Language> . }}
+ Question: [{string=What is the relation between Resource Description Framework and Web Ontology Language?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:22:32 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{  <http://dbpedia.org/resource/Westphalia> <http://dbpedia.org/ontology/areaTotal> ?answer . } }>
+16.07.18 14:22:32 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: number
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{  <http://dbpedia.org/resource/Westphalia> <http://dbpedia.org/ontology/areaTotal> ?answer . } }
+ Question: [{string=how big is the total area of North Rhine- Westphalia?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:22:40 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:22:40 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=null}
+ Question: [{string=What is the original title of the interpretation of dreams?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:22:54 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT (COUNT(DISTINCT ?a) AS ?answer) WHERE{<http://dbpedia.org/resource/Association_football> <http://dbpedia.org/ontology/teamSize> ?a . } }>
+16.07.18 14:22:54 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT (COUNT(DISTINCT ?a) AS ?answer) WHERE{<http://dbpedia.org/resource/Association_football> <http://dbpedia.org/ontology/teamSize> ?a . } }
+ Question: [{string=how many times the German football team won the world cup?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"1"}}]}}]]>
+16.07.18 14:23:00 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/albumRuntime> <http://dbpedia.org/resource/Pink> . }}>
+16.07.18 14:23:00 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/albumRuntime> <http://dbpedia.org/resource/Pink> . }}
+ Question: [{string=Who are the writers of the Wall album of Pink Floyd?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:23:06 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/William_Shakespeare> <http://dbpedia.org/ontology/deathDate> ?answer . FILTER ( (datatype(?answer) = xsd:date) || (datatype(?answer) = xsd:gYear)) }}>
+16.07.18 14:23:06 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: date
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/William_Shakespeare> <http://dbpedia.org/ontology/deathDate> ?answer . FILTER ( (datatype(?answer) = xsd:date) || (datatype(?answer) = xsd:gYear)) }}
+ Question: [{string=When was the death  of  Shakespeare?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"1616-04-23"}}]}}]]>
+16.07.18 14:23:10 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:23:10 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=null}
+ Question: [{string=With how many countries Iran has borders?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:23:13 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:23:13 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=null}
+ Question: [{string=Where is Sungkyunkwan University?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:23:19 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{?answer rdf:type <http://dbpedia.org/ontology/City>. ?answer  <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Germany> . ?answer  <http://dbpedia.org/ontology/areaTotal> ?x . } ORDER BY ASC(?x) LIMIT 1 OFFSET 0}>
+16.07.18 14:23:19 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{?answer rdf:type <http://dbpedia.org/ontology/City>. ?answer  <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Germany> . ?answer  <http://dbpedia.org/ontology/areaTotal> ?x . } ORDER BY ASC(?x) LIMIT 1 OFFSET 0}
+ Question: [{string=What is the smallest city by area in Germany?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/Kornelimünster"}}]}}]]>
+16.07.18 14:23:34 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/locationCity> <http://dbpedia.org/resource/Westphalia> . }}>
+16.07.18 14:23:34 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/locationCity> <http://dbpedia.org/resource/Westphalia> . }}
+ Question: [{string=Which beer brewing comapnies are located in North-Rhine Westphalia?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Beckhoff_Automation"}}]}}]]>
+16.07.18 14:23:40 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{?answer rdf:type <http://dbpedia.org/ontology/City>. ?answer  <http://dbpedia.org/ontology/areaTotal> ?x . } ORDER BY DESC(?x) LIMIT 1 OFFSET 0}>
+16.07.18 14:23:40 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{?answer rdf:type <http://dbpedia.org/ontology/City>. ?answer  <http://dbpedia.org/ontology/areaTotal> ?x . } ORDER BY DESC(?x) LIMIT 1 OFFSET 0}
+ Question: [{string=What is the largest city in america?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Juazeiro"}}]}}]]>
+16.07.18 14:23:51 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/vicePrimeMinister> <http://dbpedia.org/resource/Germany> . }}>
+16.07.18 14:23:51 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/ontology/vicePrimeMinister> <http://dbpedia.org/resource/Germany> . }}
+ Question: [{string=Who is the current federal minister of finance in Germany?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:23:59 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{?answer rdf:type <http://dbpedia.org/ontology/Mountain>. ?answer  <http://dbpedia.org/ontology/locatedInArea> <http://dbpedia.org/resource/Saxony> . ?answer  <http://dbpedia.org/ontology/elevation> ?x . } ORDER BY DESC(?x) LIMIT 1 OFFSET 0}>
+16.07.18 14:23:59 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{?answer rdf:type <http://dbpedia.org/ontology/Mountain>. ?answer  <http://dbpedia.org/ontology/locatedInArea> <http://dbpedia.org/resource/Saxony> . ?answer  <http://dbpedia.org/ontology/elevation> ?x . } ORDER BY DESC(?x) LIMIT 1 OFFSET 0}
+ Question: [{string=What is the highest mountain in Saxony Germany?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Fichtelberg"}}]}}]]>
+16.07.18 14:24:03 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:24:03 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=null}
+ Question: [{string=Who wrote Thinking In Java? ( dose not exist in dbpedia), language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:24:07 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:24:07 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=null}
+ Question: [{string=Who is 8th president of US?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:24:14 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:24:14 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=null}
+ Question: [{string=Where is the most deep point in the ocean?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:24:21 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Pennsylvania_State_University> <http://dbpedia.org/ontology/state> ?answer . }}>
+16.07.18 14:24:21 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Pennsylvania_State_University> <http://dbpedia.org/ontology/state> ?answer . }}
+ Question: [{string=In which state Penn State University is located?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Pennsylvania"}}]}}]]>
+16.07.18 14:24:25 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Elephant> <http://dbpedia.org/ontology/family> ?answer . }}>
+16.07.18 14:24:25 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: string
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Elephant> <http://dbpedia.org/ontology/family> ?answer . }}
+ Question: [{string=Which species does an elephant belong?, language=en}]
+ Answers: [{"head":{"vars":["resource"]},"results":{"bindings":[{"resource":{"type":"resource","value":"http:\/\/dbpedia.org\/resource\/Elephantidae"}}]}}]]>
+16.07.18 14:24:34 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/property/business> <http://dbpedia.org/resource/Donald_Trump> . }}>
+16.07.18 14:24:34 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{ ?answer <http://dbpedia.org/property/business> <http://dbpedia.org/resource/Donald_Trump> . }}
+ Question: [{string=What is Donald Trump's main business?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:24:44 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Dan_Brown> <http://dbpedia.org/ontology/notableWork> ?answer . }}>
+16.07.18 14:24:44 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Dan_Brown> <http://dbpedia.org/ontology/notableWork> ?answer . }}
+ Question: [{string=What is the last work of Dan Brown?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/The_Da_Vinci_Code"}},{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/Angels_&_Demons"}},{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/Deception_Point"}},{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/Digital_Fortress"}},{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/The_Lost_Symbol"}},{"literal":{"type":"literal","value":"http:\/\/dbpedia.org\/resource\/Inferno_(Dan_Brown_novel)"}}]}}]]>
+16.07.18 14:24:50 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=null}>
+16.07.18 14:24:50 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: resource
+ Query: {sparql=null}
+ Question: [{string=What other books have been written by the author of The Fault in Our Stars?, language=en}]
+ Answers: [{"head":{"vars":["empty"]},"results":{"bindings":[]}}]]>
+16.07.18 14:25:03 INFO  [sonbuilder.GerbilFinalResponse] 23    - <query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Friends> ?property ?answer . FILTER ( datatype(?answer) = xsd:date )} LIMIT 1}>
+16.07.18 14:25:03 INFO  [sonbuilder.GerbilFinalResponse] 27    - <GerbilQA object: 
+    questions: [
+ ID :
+ Answertype: date
+ Query: {sparql=PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX dbp:  <http://dbpedia.org/property/> 
+PREFIX dbo:  <http://dbpedia.org/ontology/> 
+PREFIX    : <http://dbpedia.org/resource/>  
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?answer WHERE{<http://dbpedia.org/resource/Friends> ?property ?answer . FILTER ( datatype(?answer) = xsd:date )} LIMIT 1}
+ Question: [{string=When was the last episode of the TV series Friends aired?, language=en}]
+ Answers: [{"head":{"vars":["literal"]},"results":{"bindings":[{"literal":{"type":"literal","value":"2004-05-06"}}]}}]]>
+16.07.18 14:40:06 ERROR [.commons.load.LoaderController] 206   - <Couldn't load dataset QALD8_Test_Multilingual. Returning null.>

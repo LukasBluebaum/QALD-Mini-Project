@@ -35,7 +35,7 @@ public class QA {
 	 
 	 private static final Dataset DATASET = Dataset.QALD8_Test_Multilingual;
 	
-	 private static final String QUESTION = "When was Einstein born?";
+	 private static final String QUESTION = "What is the birth name of Adele?";
 
 	 static List<GerbilResponseBuilder> response = new ArrayList<GerbilResponseBuilder>();
 	 private static QASystem system = new QASystemImpl();
@@ -78,7 +78,7 @@ public class QA {
 			}
 
 			try {
-				OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("solution2.json"), StandardCharsets.UTF_8);
+				OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("solutionTest.json"), StandardCharsets.UTF_8);
 				writer.write(json);
 				writer.close();
 			} catch (IOException e) {

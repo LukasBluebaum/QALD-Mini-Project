@@ -93,7 +93,7 @@ University of Paderborn \\ % Your institution for the title page
 \medskip
 \textit{https://github.com/LukasBluebaum/QALD-Mini-Project} % Your email address
 }
-\date{June 21, 2018} % Date, can be changed to a custom date
+\date{July 19, 2018} % Date, can be changed to a custom date
 
 \begin{document}
 
@@ -117,12 +117,12 @@ University of Paderborn \\ % Your institution for the title page
 \frametitle{Task Description}
 \begin{itemize}
 	\item Building a Question Answering Engine that is able to get a F-measure of atleast 0.1 
-	\item Using Dbpedia as knowledge base
+	\item Using DBpedia as knowledge base
 \end{itemize}
 \begin{block}{Given}
 \begin{itemize}
-	\item Library qa.annotation (finding entities, properties, classes) and qa.commons (load / store QAÖD Datasets)
-	\item a wrapper to plug in GERBIL QA
+	\item Library qa.annotation (finding entities, properties, classes) and qa.commons (load / store QALD Datasets)
+	\item A wrapper to plug in GERBIL QA
 \end{itemize}
 \end{block}
 \end{frame}
@@ -158,7 +158,7 @@ University of Paderborn \\ % Your institution for the title page
 	\item Three modes:
 	\begin{itemize}		
 		\item Run offline: tries to answer one committed question
-		\item Answer Dataset Questions: Load QALD Dataset and save the result as JSON-File (list of questions and their answers)
+		\item Answer Dataset Questions: Load a QALD Dataset and save the result as a JSON-File (list of questions and their answers)
 		\item Can be used as a webservice
 	\end{itemize}
 \end{itemize}
@@ -170,10 +170,10 @@ University of Paderborn \\ % Your institution for the title page
 		\item Using the GerbilQA-Benchmarking-Template
 		\begin{itemize}
 			\item Webserver via the Spring Framework
-			\item Takes a HTTP-POST Request containing the Question
+			\item Takes a HTTP-POST request containing the question
 		\end{itemize}
 		\item Passes the question to the QuestionEngine
-		\item Returns a JSON-File conatining the answer and the used query
+		\item Returns a JSON-String containing the answer and the used query
 	\end{itemize}
 \end{frame}
 
@@ -188,7 +188,7 @@ University of Paderborn \\ % Your institution for the title page
 	\item Classifies questions by their starting word
 	\begin{itemize}
 		\item e.g. "When": we can conclude from that, that the given result should be from the datatype date or year
-		\item distinguish between ASK and SELECT clause
+		\item Distinguish between ASK and SELECT clause
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -197,8 +197,8 @@ University of Paderborn \\ % Your institution for the title page
 \frametitle{Question Preprocessing}
 \begin{itemize}
 	\item Requesting Spotlight to get all named entities in the question
-	\item Using the Stanford Core NLP to find keywords that give us information about the relations from the question 
-	\item findClasses/findProperties: using indexDBO\_classes from the qa.annotation library on nouns, verbs and adjectives
+	\item Using the Stanford CoreNLP to find keywords that give us information about the relations from the question 
+	\item FindClasses/findProperties: Using IndexDBO\_classes from the qa.annotation library on nouns, verbs and adjectives
 \end{itemize}
 \end{frame}
 
@@ -210,15 +210,15 @@ University of Paderborn \\ % Your institution for the title page
 \frametitle{Sparql Query Templates}
 \begin{block}{Templates for different types of questions}
 	\begin{itemize}
-		\item boolean questions such as: "Do Prince Harry and Prince William have the same parents?"
-		\item list questions
-		\item Who,Which,When,Where 
+		\item Boolean questions such as: "Do Prince Harry and Prince William have the same parents?"
+		\item List questions
+		\item Who, Which, When, Where 
 		\item How (much/many)
 	\end{itemize}
 \end{block}
 \begin{itemize}
 	\item Further differentiation which template to use based on number of classes/entities and comparison words
-	\item Request Dbpedia endpoint using Apache Jena Library 
+	\item Request DBpedia endpoint using Apache Jena library 
 \end{itemize}
 \end{frame}
 
@@ -228,12 +228,14 @@ University of Paderborn \\ % Your institution for the title page
 \frametitle{Sparql Query Templates \\ {\normalsize Example Query}}
 \begin{example}[most basic query]
 	\begin{itemize}
-		\item Question: "Who was the doctoral supervisor of Albert Einstein"?
+		\item Question: "Who was the doctoral supervisor of Albert Einstein?"
 		\item One Entity: Albert Einstein
 		\item doctoral supervisor maps to property dbo:doctoralAdvisor  
-		\item[] Query $\Rightarrow$ SELECT DISTINCT ?uri WHERE \{  
+		\item[] Query $\Rightarrow$ SELECT DISTINCT ?answer WHERE \{  \\
+		\tab[1.4cm]	?answer a foaf:Person. 
 		\tab[1.4cm] $<$http://dbpedia.org/resource/Albert\_Einstein$>$ 
-		\tab[1.4cm] $<$http://dbpedia.org/ontology/doctoralAdvisor$>$ ?uri . \}
+		\tab[1.4cm] $<$http://dbpedia.org/ontology/doctoralAdvisor$>$ ?answer . \\
+		\tab[1.4cm] \}
 	\end{itemize}
 \end{example}
 \end{frame}
@@ -244,7 +246,7 @@ University of Paderborn \\ % Your institution for the title page
 	
 	\column{.5\textwidth} % Left column and width
 	\begin{itemize}
-		\item Predefined comparison enum for questions containg superlatives or comparatives
+		\item Predefined comparison enum for questions containing superlatives or comparatives
 	\end{itemize}
 	
 	\column{.7\textwidth} % Right column and width
@@ -291,11 +293,11 @@ University of Paderborn \\ % Your institution for the title page
 \begin{frame}
 \frametitle{Benchmarking \\ {\normalsize QALD8 Train}}
 \begin{center}
-
+	\includegraphics[scale=0.38]{QALD-8-Train.PNG}
 \end{center}
 
 \begin{itemize}
-	\item  
+	\item  http://gerbil-qa.aksw.org/gerbil/experiment?id=201807170000
 \end{itemize}
 \end{frame}
 
