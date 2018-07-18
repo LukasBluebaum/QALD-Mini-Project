@@ -116,7 +116,7 @@ University of Paderborn \\ % Your institution for the title page
 \begin{frame}
 \frametitle{Task Description}
 \begin{itemize}
-	\item Building a Question Answering Engine that is able to get a F-measure of atleast 0.1 
+	\item Building a Question Answering Engine that is able to get an F-measure of at least 0.1 
 	\item Using DBpedia as knowledge base
 \end{itemize}
 \begin{block}{Given}
@@ -159,7 +159,7 @@ University of Paderborn \\ % Your institution for the title page
 	\begin{itemize}		
 		\item Run offline: tries to answer one committed question
 		\item Answer Dataset Questions: Load a QALD Dataset and save the result as a JSON-File (list of questions and their answers)
-		\item Can be used as a webservice
+		\item Can be used as a web service
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -169,8 +169,8 @@ University of Paderborn \\ % Your institution for the title page
 	\begin{itemize}
 		\item Using the GerbilQA-Benchmarking-Template
 		\begin{itemize}
-			\item Webserver via the Spring Framework
-			\item Takes a HTTP-POST request containing the question
+			\item Web server via the Spring Framework
+			\item Takes an HTTP-POST request containing the question
 		\end{itemize}
 		\item Passes the question to the QuestionEngine
 		\item Returns a JSON-String containing the answer and the used query
@@ -184,11 +184,11 @@ University of Paderborn \\ % Your institution for the title page
 \begin{frame}
 \frametitle{Question Preprocessing}
 \begin{itemize}
-	\item Determining which method to build a sparql query should be applied
+	\item Determining which method to build a SPARQL query should be applied
 	\item Classifies questions by their starting word
 	\begin{itemize}
 		\item e.g. "When": we can conclude from that, that the given result should be from the datatype date or year
-		\item Distinguish between ASK and SELECT clause
+		\item Distinguishes between ASK and SELECT clause
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -217,8 +217,8 @@ University of Paderborn \\ % Your institution for the title page
 	\end{itemize}
 \end{block}
 \begin{itemize}
-	\item Further differentiation which template to use based on number of classes/entities and comparison words
-	\item Request DBpedia endpoint using Apache Jena library 
+	\item Further differentiation which template to use based on the number of classes/entities and comparison words
+	\item Requests DBpedia endpoint using Apache Jena library 
 \end{itemize}
 \end{frame}
 
@@ -230,7 +230,7 @@ University of Paderborn \\ % Your institution for the title page
 	\begin{itemize}
 		\item Question: "Who was the doctoral supervisor of Albert Einstein?"
 		\item One Entity: Albert Einstein
-		\item doctoral supervisor maps to property dbo:doctoralAdvisor  
+		\item Doctoral supervisor maps to property dbo:doctoralAdvisor  
 		\item[] Query $\Rightarrow$ SELECT DISTINCT ?answer WHERE \{  \\
 		\tab[1.4cm]	?answer a foaf:Person. 
 		\tab[1.4cm] $<$http://dbpedia.org/resource/Albert\_Einstein$>$ 
