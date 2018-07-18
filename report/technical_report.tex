@@ -42,8 +42,12 @@ Ralf Keller}
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-The abstract should briefly summarize the contents of the paper in
-150--250 words.
+As part of the lecture "Semantic Web", we developed a template based Question answering engine. The Question answering engine is able to answer different types of questions using DBpedia as the knowledge base to extract those answers.
+The engine maps keywords to find information that are needed to generate appropriate SPARQL queries. Including keywords that are used to determine the selection of the templates.
+Those information can be properties and classes. DBpedia Spotlight is used to find the entities of the questions.
+We iterate over the set of information needed to fill in the templates.
+The properties get ranked, to improve the probability that our first query returns a correct answer.
+Our engine achieves an F-score of 0.527 for the QALD 8 Dataset.
 
 \keywords{QALD  \and Question Answering \and Spotlight \and SPARQL.}
 \end{abstract}
