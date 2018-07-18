@@ -14,7 +14,7 @@
 % If you use the hyperref package, please uncomment the following line
 % to display URLs in blue roman font according to Springer's eBook style:
 %  \renewcommand\UrlFont{\color{blue}\rmfamily}
-
+\raggedbottom
 \begin{document}
 %
 \title{QALD-Mini-Project}
@@ -47,14 +47,14 @@ The engine maps keywords to find information that are needed to generate appropr
 Those information can be properties and classes. DBpedia Spotlight is used to find the entities of the questions.
 We iterate over the set of information needed to fill in the templates.
 The properties get ranked, to improve the probability that our first query returns a correct answer.
-Our engine achieves an F-score of 0.527 for the QALD 8 Dataset.
+Our engine achieves an F-score of 0.527 for the QALD8-Test Dataset.
 
 \keywords{QALD  \and Question Answering \and Spotlight \and SPARQL.}
 \end{abstract}
 %
 %
 %
-\section{Introduction (Ralf)}  
+\section{Introduction}  
 
 The World Wide Web is filled with information for everyone to explore. Most information on the Web is unstructured, what makes it hard to process for humans and computers. The Semantic Web is a approach to provide structured data in the Web that is easy to process by computers and can be processed to be easily understood by humans. \\
 
@@ -71,7 +71,7 @@ Relevant entities contained in the question have to be identified and the questi
 To get a answer a SPARQL-Query has to be build and executed on a endpoint. That is the responsibility of the \emph{SPARQLQueryBuilder}. This component uses the processed information provided by the Question Processor, builds a SPARQL-Query by using predefined templates and executes the query on an endpoint provided by DBPedia. \\ 
 
 \pagebreak
-\section{Simplified Procedure (Nick)} 
+\section{Simplified Procedure} 
 \begin{figure}
 	\includegraphics[width=\textwidth]{Architecture.PNG}
 	
@@ -82,7 +82,7 @@ To get a answer a SPARQL-Query has to be build and executed on a endpoint. That 
 The Question Answering processing includes multiple steps. After the question have been received, the question will be forwarded to the QuestionProcessor by the QA class. \\
 This class annotates the questions with all additional information that are important to be able to find an answer. 
 The question is sent to DBpedia Spotlight which performs named entity recognition. The found entities are saved in a question object. 
-Following this, we use the Stanford CoreNLP in order to find words that could indicate which DBpedia property we will need to later fill in the templates. \\
+Following this, we use the Stanford CoreNLP \cite{stanford} in order to find words that could indicate which DBpedia property we will need to later fill in the templates. \\
 Therefore we pass those keywords to  IndexDBO\_classes provided by the qa.annotation library. \\
 Furthermore, the IndexDBO\_classes maps the nouns of the question to classes if a corresponding class exists in the DBpedia namespace. The IndexDBO class itself performs a fuzzy search on a predefined file that contains a set of DBpedia properties and keywords using the Apache Lucene library. \\
 All gathered information will be stored in the question object. \\
@@ -93,7 +93,7 @@ Then we query the DBpedia SPARQL endpoint using apache Jena with all SPARQL quer
 The result is returned and converted to an answer JSON object by the provided gerbil wrapper classes. \\
 
 
-\section{QA System (Ralf)}
+\section{QA System}
 
 The QA-System component is the component that reads questions from various datasources and relays them to other components, mainly to the \emph{Question Processor}. It is also responsible for outputting the answer to asked questions. \\
 	
@@ -119,15 +119,15 @@ The webserver starts listening for HTTP-POST requests under the \emph{/gerbil} p
 
 The webserver relays the the question to the QuestionProcessor by using the \emph{QA-System} component, which returns an \emph{Answer Container}. The webserver converts the Container to a JSON-String, which is sent to the user as a response to their POST-request.
 
-\section{Question Preprocessing (Lukas)} 
+\section{Question Preprocessing} 
 Before we can start to build a SPARQL-Query we need to preprocess the questions. First we classify them depending on their starting word, because by doing so we can already get many information about the expected answer. So for example if we have a "When" question we already know that the answer should be of datatype date or year. \\
 
-Then we use the Stanford CoreNLP \cite{stanford} to find keywords inside the questions. Here we extract nouns, verbs and adjectives and later map them to classes and properties from the DBpedia ontology. We also extract superlatives and comparatives to further differentiate the used templates. For the Named Entity Recognition we request the Spotlight \cite{spotlight} demo through the qa.annotation library. Then we remove entities that can also be mapped to classes, because somtimes Spotlight detects something like "Mountain" also as entity (resource) and we normally want to use that as a class and not an entity. \\
+Then we use the Stanford CoreNLP to find keywords inside the questions. Here we extract nouns, verbs and adjectives and later map them to classes and properties from the DBpedia ontology. We also extract superlatives and comparatives to further differentiate the used templates. For the Named Entity Recognition we request the Spotlight \cite{spotlight} demo through the qa.annotation library. Then we remove entities that can also be mapped to classes, because somtimes Spotlight detects something like "Mountain" also as entity (resource) and we normally want to use that as a class and not an entity. \\
 
 Finally we apply the IndexDBO classes of the qa.annotation library to the extracted nouns,verbs and adjectives to map them to classes and properties from the DBpedia ontology. Here normally verbs, adjectives will be mapped
 to properties and nouns to classes. In the next step we will then rank the properties, so that we can test the properties with the most hits, triples on DBpedia with that property, first. We also extented the property list in qa.annotations and just added all DBpedia ontology properties.
 
-\section{Template Overview (Lukas)}
+\section{Template Overview}
 Below in table 1 you can see a quick overview of some of the question types we differentiated. Afterwards we also looked at the number of entites and classes and if there is a superlative or comparative to choose the template accordingly. Finally we requested the DBpedia endpoint using Apache Jena.
 
 \begin{table}
@@ -166,7 +166,7 @@ Spotlight will find one entity: \textit{dbr:Albert Einstein}. Then \textit{docto
 
 
 
-\subsection{Superlatives, Comparatives (Ralf) )(Lukas)} 
+\subsection{Superlatives, Comparatives} 
 
 When the user enters a question like \emph{What is the highest mountain in Germany?}  the SPARQLQueryBuilder builds a query that fetches all mountains in Germany, sorts them descending by height and selects the first entry. This process is applicable for every other superlative and comparative. \\
 
@@ -214,7 +214,7 @@ largest (dbo:areaTotal) with the order "DESC".
 	\tab[1.8cm]	ORDER BY DESC(?area) LIMIT 1 OFFSET 0\end{example}
 
 \pagebreak
-\section{Benchmarking and Evaluation (Nick)} 
+\section{Benchmarking and Evaluation} 
 
 The GERBIL platform computes an F-score over our answers. We evalutated the QALD8\_Train as well as the QALD8\_Test set.
 
@@ -235,7 +235,7 @@ The GERBIL platform computes an F-score over our answers. We evalutated the QALD
 \end{figure}
 
 \pagebreak
-\section{Discussion (Nick)} 
+\section{Discussion} 
 Our system reaches an F-score of about 0.527. This is partly due to the number of properties to which the words of the question can get matched to otherwise, some question that could be answered with a simple SPARQL query could not be answered. \\
 
 Further factors include the ordering of those properties and a larger number of different templates. 
