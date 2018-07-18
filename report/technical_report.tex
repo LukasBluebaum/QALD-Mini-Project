@@ -8,7 +8,7 @@
 \usepackage{tabularx}
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
-
+\usepackage{float}
 \usepackage{enumerate}
 %
 % If you use the hyperref package, please uncomment the following line
@@ -211,12 +211,15 @@ largest (dbo:areaTotal) with the order "DESC".
 
 \section{Benchmarking and Evaluation (Nick)} 
 
-\begin{figure}
+The GERBIL platform computes an F-score over our answers. We evalutated the QALD\_Train as well as the QALD\_Test set.
+
+\begin{figure}[H]
 	\includegraphics[width=\textwidth]{QALD-8-Test.PNG}
 	http://gerbil-qa.aksw.org/gerbil/experiment?id=201807160000
 	\caption{Gerbil experiment for the QALD8-Test set, with a F-measure of 0.49.}
 	\label{fig2} 
 \end{figure}
+
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{QALD-8-Train.PNG}
@@ -226,7 +229,14 @@ largest (dbo:areaTotal) with the order "DESC".
 	\label{fig3} 
 \end{figure}
 
-\section{Summary (Nick)} 
+\section{Discussion (Nick)} 
+Our system reaches an F-score of about 0,527. This is partly due to the number of properties to which the words of the question can get matched to otherwise, some question that could be answered with a simple SPARQL query could not be answered. \\
+Further factors include the ordering of those properties and a larger number of different templates. 
+The QALD8 set has a focus on questions containing comparative, superlative as well as temporal aggregators, so our templates are mostly designed to answer those kinds of questions. \\
+Presumably, our system will have a slightly worse result on other questions sets. Our system provides the foundations to answer a multitude of questions, so it could easily be extended to further improve the result.\\
+Our system is not able to understand the semantics of the questions. \\
+Nevertheless identifying keywords to map those to classes and properties as well as keywords that enable us to classify the questions leads to an appropriate selection of a SPARQL-Query.
+
 
 
 %
