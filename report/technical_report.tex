@@ -56,9 +56,9 @@ Our engine achieves an F-score of 0.527 for the QALD8-Test Dataset.
 %
 \section{Introduction}  
 
-The World Wide Web is filled with information for everyone to explore. Most information on the Web is unstructured, what makes it hard to process for humans and computers. The Semantic Web is a approach to provide structured data in the Web that is easy to process by computers and can be processed to be easily understood by humans. \\
+The World Wide Web is filled with information for everyone to explore. Most information on the Web is unstructured, which makes it hard to process for humans and computers. The Semantic Web is a approach to provide structured data in the Web that is easy to process by computers and can be processed to be easily understood by humans. \\
 
-Most Semantic Web Databases use SPARQL as the language to query the database. That means that in order to search the semantic web the user has to learn a query language, that is not very easy to learn. This is not user friendly and can be improved. \\
+Most Semantic Web Databases use SPARQL as the language to query the database. That means that in order to search the semantic web the user has to learn a query language that is not very easy to learn. This is not user friendly and can be improved. \\
 
 The goal of our project is to provide a interface that takes a question formulated in natural language and answers it by querying DBPedia. The interface will be able to be used over the web via HTTP-POST requests. We aim for a F-measure of at least 0.1. \\
 
@@ -68,7 +68,7 @@ The \emph{QA Engine} is responsible for providing the interface to users. It rea
 
 Relevant entities contained in the question have to be identified and the question has to be analyzed to determine the type of the question. This is done by the \emph{Question Processor} component. \\
 
-To get a answer a SPARQL-Query has to be build and executed on a endpoint. That is the responsibility of the \emph{SPARQLQueryBuilder}. This component uses the processed information provided by the Question Processor, builds a SPARQL-Query by using predefined templates and executes the query on an endpoint provided by DBPedia. \\ 
+In order to get an answer a SPARQL-Query has to be build and executed on a endpoint. That is the responsibility of the \emph{SPARQLQueryBuilder}. This component uses the processed information provided by the Question Processor, builds a SPARQL-Query by using predefined templates and executes the query on an endpoint provided by DBPedia. \\ 
 
 \pagebreak
 \section{Simplified Procedure} 
@@ -107,7 +107,7 @@ There are three supported input-modes:
 
 Option 1 is mainly used for debugging purposes and is not of further interest. The second option is used to run practice datasets provided by the dice research group. Our aim of a F-Score of at least 0.1 refers to these datasets. Option 3 is used to provide a webservice a user can use to get their questions answered. \\
 
-The QA-Component consists of multiple subcomponents. One subcomponent is the \emph{QA} class. This class is the main class of the program, the \emph{main} Method is invoked on startup. It is responsible for checking which mode the program should run in. The mode is defined by a flag in the code that has to be set at compile time. It loads the question and releys them to the Question Processor, based on which mode is selected. If the program runs in \emph{Dataset} mode, the QA class is also responsible for writing the results as a JSON-File to the local storage. To load the dataset, we use the \emph{LoaderController} class provided by the dice research group. \\
+The QA-Component consists of multiple subcomponents. One subcomponent is the \emph{QA} class. This class is the main class of the program, the \emph{main} Method is the entry point of the program. It is responsible for checking which mode the program should run in. The mode is defined by a flag in the code that has to be set at compile time. It loads the question and relays them to the Question Processor, based on which mode is selected. If the program runs in \emph{Dataset} mode, the QA class is also responsible for writing the results as a JSON-File to the local storage. To load the dataset, we use the \emph{LoaderController} class provided by the dice research group. \\
 
 The second component is the \emph{QA-System} component. This class' only purpose is it to take a question and return a \emph{Answer Container}. The Answer Container contains the answer of the question and the query used to get the result. The QA-System relays the question to the QuestionProcessor to get the Answer Container. The QA-System is mainly used by the webserver to determine the answer to a given question. \\
 
@@ -115,7 +115,7 @@ The second component is the \emph{QA-System} component. This class' only purpose
 
 The third component is the webserver that listens for questions over HTTP. The webserver is part of the GerbilQA-Benchmarking-Template provided by the dice research group. It utilizes the Spring-Framework to provide the service over the web. \\
 
-The webserver starts listening for HTTP-POST requests under the \emph{/gerbil} path. The parameter of the requests have to contain the question to be answered under the \emph{query} parameter and the language of the question under the \emph{lang} parameter. \\
+The webserver starts listening for HTTP-POST requests under the \emph{/gerbil} path. The parameters of the requests have to contain the question to be answered under the \emph{query} parameter and the language of the question under the \emph{lang} parameter. \\
 
 The webserver relays the the question to the QuestionProcessor by using the \emph{QA-System} component, which returns an \emph{Answer Container}. The webserver converts the Container to a JSON-String, which is sent to the user as a response to their POST-request.
 
