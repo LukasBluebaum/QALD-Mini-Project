@@ -31,7 +31,7 @@ public class QA {
 			 LoadDataset
 		 }
 	
-	 private static final DebugMode DEBUGMODE = DebugMode.LoadDataset;
+	 private static final DebugMode DEBUGMODE = DebugMode.DebugOnline;
 	 
 	 private static final Dataset DATASET = Dataset.QALD8_Test_Multilingual;
 	

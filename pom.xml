@@ -56,7 +56,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>org.dice.webservice.WebApplication</mainClass>
+					<mainClass>qa.QA</mainClass>
 					<layout>JAR</layout>
 				</configuration>
 				<executions>
